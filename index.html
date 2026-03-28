@@ -1,0 +1,1290 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ExcelFin Academy — Master Excel for Finance</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Mono:wght@300;400;500&family=Lora:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+<style>
+:root {
+  --ink: #0d0d0d;
+  --paper: #f5f0e8;
+  --accent: #1a6b3c;
+  --accent2: #d4a017;
+  --accent3: #c0392b;
+  --muted: #6b6560;
+  --card: #ffffff;
+  --border: #d8d0c4;
+  --green-light: #e8f5ee;
+  --gold-light: #fdf6e3;
+  --red-light: #fde8e8;
+  --blue: #1a4a7a;
+  --blue-light: #e8f0fa;
+  --purple: #6b3a8f;
+  --purple-light: #f0e8f8;
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+body{font-family:'Lora',serif;background:var(--paper);color:var(--ink);overflow-x:hidden;}
+
+/* NAV */
+nav{position:fixed;top:0;left:0;right:0;z-index:1000;background:var(--ink);padding:0 2rem;display:flex;align-items:center;justify-content:space-between;height:60px;border-bottom:3px solid var(--accent2);}
+.nav-logo{font-family:'Syne',sans-serif;font-weight:800;font-size:1.2rem;color:var(--paper);letter-spacing:-0.5px;}
+.nav-logo span{color:var(--accent2);}
+.nav-links{display:flex;gap:0.5rem;flex-wrap:wrap;}
+.nav-links a{font-family:'DM Mono',monospace;font-size:0.7rem;color:var(--paper);opacity:0.7;text-decoration:none;padding:4px 10px;border:1px solid transparent;border-radius:3px;transition:all 0.2s;cursor:pointer;}
+.nav-links a:hover,.nav-links a.active{opacity:1;border-color:var(--accent2);color:var(--accent2);}
+.progress-bar-nav{position:fixed;top:60px;left:0;height:3px;background:linear-gradient(90deg,var(--accent2),var(--accent));z-index:999;transition:width 0.3s;width:0%;}
+
+/* HERO */
+.hero{min-height:100vh;display:flex;align-items:center;justify-content:center;background:var(--ink);position:relative;overflow:hidden;padding-top:60px;}
+.hero-grid{position:absolute;inset:0;background-image:linear-gradient(rgba(212,160,23,0.08) 1px,transparent 1px),linear-gradient(90deg,rgba(212,160,23,0.08) 1px,transparent 1px);background-size:40px 40px;}
+.hero-content{text-align:center;z-index:2;padding:2rem;}
+.hero-eyebrow{font-family:'DM Mono',monospace;font-size:0.75rem;color:var(--accent2);letter-spacing:3px;text-transform:uppercase;margin-bottom:1.5rem;opacity:0;animation:fadeUp 0.8s 0.2s forwards;}
+.hero h1{font-family:'Syne',sans-serif;font-size:clamp(2.5rem,7vw,5rem);font-weight:800;color:var(--paper);line-height:1;margin-bottom:1.5rem;opacity:0;animation:fadeUp 0.8s 0.4s forwards;}
+.hero h1 .highlight{color:var(--accent2);position:relative;display:inline-block;}
+.hero h1 .highlight::after{content:'';position:absolute;bottom:-4px;left:0;right:0;height:4px;background:var(--accent);border-radius:2px;}
+.hero-sub{font-size:1.1rem;color:rgba(245,240,232,0.6);max-width:600px;margin:0 auto 2.5rem;line-height:1.7;opacity:0;animation:fadeUp 0.8s 0.6s forwards;}
+.hero-stats{display:flex;gap:2.5rem;justify-content:center;margin-bottom:3rem;opacity:0;animation:fadeUp 0.8s 0.8s forwards;flex-wrap:wrap;}
+.hero-stat{text-align:center;}
+.hero-stat .num{font-family:'Syne',sans-serif;font-size:2rem;font-weight:800;color:var(--accent2);}
+.hero-stat .label{font-family:'DM Mono',monospace;font-size:0.65rem;color:rgba(245,240,232,0.5);text-transform:uppercase;letter-spacing:2px;}
+.btn-primary{display:inline-block;background:var(--accent2);color:var(--ink);font-family:'Syne',sans-serif;font-weight:700;font-size:0.9rem;padding:14px 32px;border-radius:4px;text-decoration:none;cursor:pointer;border:none;transition:all 0.2s;opacity:0;animation:fadeUp 0.8s 1s forwards;letter-spacing:0.5px;}
+.btn-primary:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(212,160,23,0.4);}
+.btn-secondary{display:inline-block;background:transparent;color:var(--paper);font-family:'Syne',sans-serif;font-weight:600;font-size:0.9rem;padding:14px 32px;border-radius:4px;border:2px solid rgba(245,240,232,0.3);cursor:pointer;transition:all 0.2s;margin-left:1rem;letter-spacing:0.5px;}
+.btn-secondary:hover{border-color:var(--paper);}
+.scroll-hint{position:absolute;bottom:2rem;left:50%;transform:translateX(-50%);font-family:'DM Mono',monospace;font-size:0.65rem;color:rgba(245,240,232,0.3);text-align:center;animation:bounce 2s infinite;}
+@keyframes bounce{0%,100%{transform:translateX(-50%) translateY(0);}50%{transform:translateX(-50%) translateY(-8px);}}
+@keyframes fadeUp{from{opacity:0;transform:translateY(20px);}to{opacity:1;transform:translateY(0);}}
+
+/* SECTIONS */
+section{padding:5rem 2rem;max-width:1200px;margin:0 auto;}
+.section-label{font-family:'DM Mono',monospace;font-size:0.7rem;color:var(--accent);letter-spacing:3px;text-transform:uppercase;margin-bottom:0.75rem;}
+.section-title{font-family:'Syne',sans-serif;font-size:clamp(1.8rem,4vw,2.8rem);font-weight:800;color:var(--ink);margin-bottom:1rem;line-height:1.1;}
+.section-sub{color:var(--muted);max-width:560px;line-height:1.7;margin-bottom:3rem;}
+
+/* LEARNING PATH */
+#path{background:var(--paper);}
+.path-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:1.5rem;}
+.path-card{background:var(--card);border:2px solid var(--border);border-radius:8px;padding:1.8rem;cursor:pointer;transition:all 0.3s;position:relative;overflow:hidden;}
+.path-card::before{content:'';position:absolute;top:0;left:0;right:0;height:4px;}
+.path-card.beginner::before{background:var(--accent);}
+.path-card.intermediate::before{background:var(--accent2);}
+.path-card.advanced::before{background:var(--accent3);}
+.path-card.expert::before{background:var(--blue);}
+.path-card:hover{transform:translateY(-4px);box-shadow:0 12px 32px rgba(0,0,0,0.1);border-color:var(--accent2);}
+.path-icon{font-size:2rem;margin-bottom:1rem;}
+.path-card h3{font-family:'Syne',sans-serif;font-weight:700;font-size:1.1rem;margin-bottom:0.5rem;}
+.path-card p{font-size:0.85rem;color:var(--muted);line-height:1.6;margin-bottom:1rem;}
+.path-topics{display:flex;flex-wrap:wrap;gap:0.4rem;}
+.tag{font-family:'DM Mono',monospace;font-size:0.6rem;padding:3px 8px;border-radius:20px;background:var(--green-light);color:var(--accent);}
+.tag.gold{background:var(--gold-light);color:#8a6800;}
+.tag.red{background:var(--red-light);color:var(--accent3);}
+.tag.blue{background:var(--blue-light);color:var(--blue);}
+
+/* FORMULA REFERENCE */
+#formulas{background:#1a1a1a;color:var(--paper);padding:5rem 2rem;}
+#formulas .inner{max-width:1200px;margin:0 auto;}
+#formulas .section-title{color:var(--paper);}
+#formulas .section-label{color:var(--accent2);}
+#formulas .section-sub{color:rgba(245,240,232,0.5);}
+.formula-tabs{display:flex;gap:0.5rem;flex-wrap:wrap;margin-bottom:2rem;}
+.ftab{font-family:'DM Mono',monospace;font-size:0.7rem;padding:6px 14px;border-radius:3px;border:1px solid rgba(245,240,232,0.2);background:transparent;color:rgba(245,240,232,0.5);cursor:pointer;transition:all 0.2s;}
+.ftab.active,.ftab:hover{background:var(--accent2);color:var(--ink);border-color:var(--accent2);}
+.formula-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:1rem;}
+.formula-card{background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);border-radius:6px;padding:1.2rem;transition:all 0.2s;}
+.formula-card:hover{background:rgba(255,255,255,0.08);border-color:var(--accent2);}
+.formula-name{font-family:'DM Mono',monospace;font-size:0.85rem;font-weight:500;color:var(--accent2);margin-bottom:0.3rem;}
+.formula-desc{font-size:0.8rem;color:rgba(245,240,232,0.6);margin-bottom:0.6rem;line-height:1.5;}
+.formula-syntax{font-family:'DM Mono',monospace;font-size:0.7rem;background:rgba(0,0,0,0.4);padding:6px 10px;border-radius:4px;color:#88d4a8;border-left:3px solid var(--accent);}
+.formula-example{font-family:'DM Mono',monospace;font-size:0.65rem;color:rgba(245,240,232,0.4);margin-top:0.4rem;}
+
+/* INTERACTIVE LESSON */
+#lessons{padding:5rem 2rem;}
+.lesson-wrapper{max-width:1200px;margin:0 auto;}
+.lesson-header{display:flex;gap:1rem;align-items:center;margin-bottom:2rem;flex-wrap:wrap;}
+.lesson-nav-btn{font-family:'DM Mono',monospace;font-size:0.7rem;padding:6px 14px;border-radius:3px;border:2px solid var(--border);background:transparent;color:var(--muted);cursor:pointer;transition:all 0.2s;}
+.lesson-nav-btn.active,.lesson-nav-btn:hover{border-color:var(--accent);color:var(--accent);}
+.lesson-content{display:none;}
+.lesson-content.active{display:block;animation:fadeUp 0.4s;}
+.lesson-box{background:var(--card);border:2px solid var(--border);border-radius:8px;padding:2rem;margin-bottom:1.5rem;}
+.lesson-box h3{font-family:'Syne',sans-serif;font-weight:700;font-size:1.2rem;margin-bottom:1rem;color:var(--ink);}
+.excel-table{width:100%;border-collapse:collapse;font-family:'DM Mono',monospace;font-size:0.75rem;margin:1rem 0;}
+.excel-table th{background:var(--ink);color:var(--paper);padding:6px 12px;text-align:left;font-weight:500;}
+.excel-table td{border:1px solid var(--border);padding:6px 12px;background:var(--card);}
+.excel-table tr:nth-child(even) td{background:#fafafa;}
+.excel-table td.formula{color:var(--accent);font-style:italic;}
+.excel-table td.header-col{background:#e8f5ee;font-weight:500;color:var(--accent);}
+.excel-table td.result{background:var(--gold-light);color:#8a6800;font-weight:500;}
+.tip-box{background:var(--blue-light);border-left:4px solid var(--blue);padding:1rem 1.2rem;border-radius:0 6px 6px 0;margin:1rem 0;font-size:0.85rem;color:var(--blue);}
+.tip-box strong{font-family:'Syne',sans-serif;}
+.warn-box{background:var(--red-light);border-left:4px solid var(--accent3);padding:1rem 1.2rem;border-radius:0 6px 6px 0;margin:1rem 0;font-size:0.85rem;color:var(--accent3);}
+.code-block{font-family:'DM Mono',monospace;font-size:0.75rem;background:#1a1a1a;color:#88d4a8;padding:1rem 1.2rem;border-radius:6px;margin:0.5rem 0;overflow-x:auto;line-height:1.8;}
+.code-block .comment{color:#666;}
+.code-block .func{color:var(--accent2);}
+.code-block .string{color:#f0a500;}
+.code-block .num{color:#88b4f0;}
+.step-list{counter-reset:steps;}
+.step-list li{counter-increment:steps;list-style:none;padding:0.8rem 0.8rem 0.8rem 3rem;position:relative;border-bottom:1px solid var(--border);font-size:0.9rem;line-height:1.6;}
+.step-list li:last-child{border-bottom:none;}
+.step-list li::before{content:counter(steps);position:absolute;left:0.8rem;top:0.8rem;width:22px;height:22px;background:var(--accent);color:white;border-radius:50%;font-family:'Syne',sans-serif;font-size:0.65rem;font-weight:700;display:flex;align-items:center;justify-content:center;}
+.formula-pill{display:inline-block;font-family:'DM Mono',monospace;font-size:0.7rem;background:var(--green-light);color:var(--accent);padding:2px 8px;border-radius:3px;margin:0 2px;}
+
+/* EXERCISES */
+#exercises{background:#f8f4ed;padding:5rem 2rem;}
+#exercises .inner{max-width:1200px;margin:0 auto;}
+.exercise-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:1.2rem;}
+.ex-card{background:var(--card);border:2px solid var(--border);border-radius:8px;padding:1.5rem;transition:all 0.3s;}
+.ex-card:hover{border-color:var(--accent2);box-shadow:0 6px 20px rgba(0,0,0,0.08);}
+.ex-header{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:0.75rem;}
+.ex-num{font-family:'DM Mono',monospace;font-size:0.65rem;color:var(--muted);}
+.ex-diff{font-family:'DM Mono',monospace;font-size:0.6rem;padding:3px 8px;border-radius:20px;}
+.diff-easy{background:#e8f5ee;color:var(--accent);}
+.diff-med{background:var(--gold-light);color:#8a6800;}
+.diff-hard{background:var(--red-light);color:var(--accent3);}
+.diff-expert{background:var(--purple-light);color:var(--purple);}
+.ex-card h4{font-family:'Syne',sans-serif;font-weight:700;font-size:0.95rem;margin-bottom:0.5rem;}
+.ex-card p{font-size:0.8rem;color:var(--muted);line-height:1.5;margin-bottom:1rem;}
+.ex-expand{font-family:'DM Mono',monospace;font-size:0.65rem;color:var(--accent);cursor:pointer;text-decoration:underline;text-underline-offset:3px;}
+.ex-detail{display:none;margin-top:1rem;padding-top:1rem;border-top:1px solid var(--border);}
+.ex-detail.open{display:block;animation:fadeUp 0.3s;}
+.answer-input{width:100%;font-family:'DM Mono',monospace;font-size:0.75rem;border:2px solid var(--border);border-radius:4px;padding:8px 10px;margin-top:0.5rem;transition:border-color 0.2s;background:var(--paper);}
+.answer-input:focus{outline:none;border-color:var(--accent);}
+.check-btn{font-family:'Syne',sans-serif;font-size:0.75rem;font-weight:600;padding:7px 18px;background:var(--ink);color:var(--paper);border:none;border-radius:4px;cursor:pointer;margin-top:0.5rem;transition:all 0.2s;}
+.check-btn:hover{background:var(--accent);}
+.answer-feedback{font-family:'DM Mono',monospace;font-size:0.7rem;margin-top:0.5rem;padding:6px 10px;border-radius:4px;display:none;}
+.answer-feedback.correct{background:var(--green-light);color:var(--accent);display:block;}
+.answer-feedback.wrong{background:var(--red-light);color:var(--accent3);display:block;}
+
+/* QUIZ */
+#quiz{padding:5rem 2rem;}
+#quiz .inner{max-width:900px;margin:0 auto;}
+.quiz-container{background:var(--card);border:2px solid var(--border);border-radius:12px;overflow:hidden;}
+.quiz-header{background:var(--ink);padding:1.5rem 2rem;display:flex;justify-content:space-between;align-items:center;}
+.quiz-header h3{font-family:'Syne',sans-serif;font-weight:700;color:var(--paper);font-size:1.1rem;}
+.quiz-meta{font-family:'DM Mono',monospace;font-size:0.7rem;color:var(--accent2);}
+.quiz-progress{height:6px;background:rgba(245,240,232,0.1);}
+.quiz-progress-fill{height:100%;background:linear-gradient(90deg,var(--accent2),var(--accent));transition:width 0.5s;}
+.quiz-body{padding:2rem;}
+.quiz-question{font-size:1rem;font-weight:600;margin-bottom:1.5rem;line-height:1.6;color:var(--ink);}
+.quiz-options{display:flex;flex-direction:column;gap:0.75rem;}
+.quiz-opt{border:2px solid var(--border);border-radius:6px;padding:0.9rem 1.2rem;cursor:pointer;transition:all 0.2s;font-size:0.85rem;font-family:'DM Mono',monospace;text-align:left;background:var(--paper);}
+.quiz-opt:hover{border-color:var(--accent2);background:var(--gold-light);}
+.quiz-opt.selected{border-color:var(--accent2);background:var(--gold-light);}
+.quiz-opt.correct{border-color:var(--accent);background:var(--green-light);color:var(--accent);}
+.quiz-opt.wrong{border-color:var(--accent3);background:var(--red-light);color:var(--accent3);}
+.quiz-explain{margin-top:1.2rem;padding:1rem;background:var(--blue-light);border-radius:6px;font-size:0.8rem;color:var(--blue);display:none;line-height:1.6;}
+.quiz-explain.show{display:block;animation:fadeUp 0.3s;}
+.quiz-footer{padding:1rem 2rem;border-top:1px solid var(--border);display:flex;justify-content:space-between;align-items:center;}
+.quiz-score-display{font-family:'DM Mono',monospace;font-size:0.75rem;color:var(--muted);}
+.next-btn{font-family:'Syne',sans-serif;font-size:0.8rem;font-weight:700;padding:8px 24px;background:var(--accent);color:white;border:none;border-radius:4px;cursor:pointer;transition:all 0.2s;display:none;}
+.next-btn:hover{background:var(--ink);}
+.quiz-complete{text-align:center;padding:3rem 2rem;}
+.quiz-complete .score-big{font-family:'Syne',sans-serif;font-size:4rem;font-weight:800;color:var(--accent2);}
+.quiz-complete .grade{font-family:'DM Mono',monospace;font-size:0.8rem;color:var(--muted);margin-bottom:1.5rem;}
+.quiz-difficulty-select{display:flex;gap:0.75rem;flex-wrap:wrap;margin-bottom:2rem;}
+.diff-btn{font-family:'DM Mono',monospace;font-size:0.7rem;padding:6px 16px;border-radius:3px;border:2px solid var(--border);background:transparent;cursor:pointer;transition:all 0.2s;color:var(--muted);}
+.diff-btn.active{border-color:var(--accent);color:var(--accent);background:var(--green-light);}
+
+/* TOOLS SECTION */
+#tools{background:#1a1a1a;color:var(--paper);padding:5rem 2rem;}
+#tools .inner{max-width:1200px;margin:0 auto;}
+#tools .section-title{color:var(--paper);}
+#tools .section-label{color:var(--accent2);}
+#tools .section-sub{color:rgba(245,240,232,0.5);}
+.tools-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:1.2rem;}
+.tool-card{background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.1);border-radius:8px;padding:1.5rem;transition:all 0.3s;}
+.tool-card:hover{background:rgba(255,255,255,0.08);border-color:var(--accent2);transform:translateY(-3px);}
+.tool-icon{font-size:2rem;margin-bottom:0.8rem;}
+.tool-card h3{font-family:'Syne',sans-serif;font-weight:700;font-size:1rem;margin-bottom:0.5rem;color:var(--paper);}
+.tool-card p{font-size:0.8rem;color:rgba(245,240,232,0.5);line-height:1.6;margin-bottom:1rem;}
+.tool-use{font-family:'DM Mono',monospace;font-size:0.65rem;color:var(--accent2);padding:3px 8px;background:rgba(212,160,23,0.1);border-radius:3px;display:inline-block;}
+
+/* FINANCIAL MODELING */
+#modeling{padding:5rem 2rem;}
+.modeling-wrapper{max-width:1200px;margin:0 auto;}
+.model-tabs{display:flex;gap:0.5rem;flex-wrap:wrap;margin-bottom:2rem;}
+.model-tab{font-family:'Syne',sans-serif;font-size:0.75rem;font-weight:600;padding:8px 18px;border-radius:4px;border:2px solid var(--border);background:transparent;cursor:pointer;transition:all 0.2s;color:var(--muted);}
+.model-tab.active{background:var(--ink);color:var(--paper);border-color:var(--ink);}
+.model-content{display:none;}
+.model-content.active{display:block;animation:fadeUp 0.3s;}
+.model-grid{display:grid;grid-template-columns:1fr 1fr;gap:1.5rem;}
+@media(max-width:768px){.model-grid{grid-template-columns:1fr;}}
+.model-box{background:var(--card);border:2px solid var(--border);border-radius:8px;padding:1.5rem;}
+.model-box h4{font-family:'Syne',sans-serif;font-weight:700;font-size:0.95rem;margin-bottom:1rem;color:var(--ink);}
+.finance-table{width:100%;border-collapse:collapse;font-family:'DM Mono',monospace;font-size:0.72rem;}
+.finance-table th{background:#f0ebe0;color:var(--muted);padding:5px 10px;text-align:left;font-size:0.65rem;letter-spacing:1px;text-transform:uppercase;}
+.finance-table td{padding:5px 10px;border-bottom:1px solid var(--border);}
+.finance-table td:last-child{text-align:right;font-weight:500;}
+.finance-table .total-row td{border-top:2px solid var(--ink);font-weight:700;font-size:0.78rem;}
+.finance-table .sub-row td{color:var(--muted);}
+.positive{color:var(--accent);}
+.negative{color:var(--accent3);}
+
+/* DATASET DOWNLOAD */
+#datasets{background:#f0ebe0;padding:5rem 2rem;}
+#datasets .inner{max-width:1200px;margin:0 auto;}
+.dataset-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:1.2rem;}
+.dataset-card{background:var(--card);border:2px solid var(--border);border-radius:8px;padding:1.5rem;transition:all 0.3s;}
+.dataset-card:hover{border-color:var(--accent2);transform:translateY(-2px);}
+.dataset-card h4{font-family:'Syne',sans-serif;font-weight:700;font-size:0.95rem;margin-bottom:0.4rem;}
+.dataset-card p{font-size:0.78rem;color:var(--muted);margin-bottom:1rem;line-height:1.5;}
+.dataset-meta{display:flex;gap:0.5rem;flex-wrap:wrap;margin-bottom:1rem;}
+.dataset-tag{font-family:'DM Mono',monospace;font-size:0.58rem;padding:2px 7px;border-radius:2px;background:var(--green-light);color:var(--accent);}
+.download-btn{font-family:'Syne',sans-serif;font-size:0.72rem;font-weight:600;padding:6px 16px;background:var(--accent);color:white;border:none;border-radius:3px;cursor:pointer;transition:all 0.2s;width:100%;}
+.download-btn:hover{background:var(--ink);}
+
+/* CHEATSHEET */
+#cheatsheet{padding:5rem 2rem;}
+.sheet-wrapper{max-width:1200px;margin:0 auto;}
+.shortcut-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:0.8rem;}
+.shortcut-item{background:var(--card);border:1px solid var(--border);border-radius:6px;padding:0.8rem 1rem;display:flex;justify-content:space-between;align-items:center;gap:0.5rem;}
+.shortcut-item .keys{display:flex;gap:3px;flex-wrap:wrap;}
+.key{font-family:'DM Mono',monospace;font-size:0.62rem;background:var(--ink);color:var(--paper);padding:2px 6px;border-radius:3px;border-bottom:2px solid #444;}
+.shortcut-desc{font-size:0.72rem;color:var(--muted);}
+
+/* FOOTER */
+footer{background:var(--ink);color:rgba(245,240,232,0.4);text-align:center;padding:2rem;font-family:'DM Mono',monospace;font-size:0.7rem;}
+footer strong{color:var(--accent2);}
+
+/* SCROLLBAR */
+::-webkit-scrollbar{width:6px;}
+::-webkit-scrollbar-track{background:var(--paper);}
+::-webkit-scrollbar-thumb{background:var(--accent2);border-radius:3px;}
+
+/* RESPONSIVE */
+@media(max-width:768px){
+  .nav-links{display:none;}
+  .hero-stats{gap:1.5rem;}
+  .btn-secondary{margin-left:0;margin-top:0.5rem;}
+  .model-grid{grid-template-columns:1fr;}
+}
+
+/* ANIMATED COUNTER */
+.counter{transition:all 0.5s;}
+.visible-section{opacity:1;transform:translateY(0);}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-logo">Excel<span>Fin</span> Academy</div>
+  <div class="nav-links">
+    <a onclick="scrollTo('path')">Learning Path</a>
+    <a onclick="scrollTo('formulas')">Formulas</a>
+    <a onclick="scrollTo('lessons')">Lessons</a>
+    <a onclick="scrollTo('exercises')">Exercises</a>
+    <a onclick="scrollTo('quiz')">Quiz</a>
+    <a onclick="scrollTo('tools')">Tools</a>
+    <a onclick="scrollTo('modeling')">Modeling</a>
+    <a onclick="scrollTo('datasets')">Datasets</a>
+    <a onclick="scrollTo('cheatsheet')">Cheatsheet</a>
+  </div>
+</nav>
+<div class="progress-bar-nav" id="readingProgress"></div>
+
+<!-- HERO -->
+<div class="hero" id="hero">
+  <div class="hero-grid"></div>
+  <div class="hero-content">
+    <div class="hero-eyebrow">📊 Complete Finance Excel Curriculum</div>
+    <h1>Master Excel for<br><span class="highlight">Finance & Analysis</span></h1>
+    <p class="hero-sub">From basic formulas to advanced financial modeling — interactive lessons, 100+ tests, real datasets, and hands-on exercises designed for finance professionals.</p>
+    <div class="hero-stats">
+      <div class="hero-stat"><div class="num" data-target="100">0</div><div class="label">Quiz Questions</div></div>
+      <div class="hero-stat"><div class="num" data-target="60">0</div><div class="label">Exercises</div></div>
+      <div class="hero-stat"><div class="num" data-target="8">0</div><div class="label">Learning Modules</div></div>
+      <div class="hero-stat"><div class="num" data-target="12">0</div><div class="label">Sample Datasets</div></div>
+    </div>
+    <button class="btn-primary" onclick="scrollTo('path')">Start Learning Free</button>
+    <button class="btn-secondary" onclick="scrollTo('quiz')">Take the Quiz</button>
+  </div>
+  <div class="scroll-hint">↓ scroll to begin</div>
+</div>
+
+<!-- LEARNING PATH -->
+<section id="path">
+  <div class="section-label">01 — Curriculum</div>
+  <div class="section-title">Your Learning Path</div>
+  <p class="section-sub">A structured journey from spreadsheet basics to building full financial models used at top investment banks.</p>
+  <div class="path-grid">
+    <div class="path-card beginner" onclick="scrollTo('lessons');setLesson(0)">
+      <div class="path-icon">🌱</div>
+      <h3>Module 1: Foundations</h3>
+      <p>Spreadsheet navigation, cell references (relative, absolute, mixed), basic arithmetic, and essential formatting.</p>
+      <div class="path-topics">
+        <span class="tag">Cell References</span><span class="tag">SUM/AVERAGE</span><span class="tag">Formatting</span><span class="tag">Basic Charts</span>
+      </div>
+    </div>
+    <div class="path-card intermediate" onclick="scrollTo('lessons');setLesson(1)">
+      <div class="path-icon">📐</div>
+      <h3>Module 2: Core Finance Formulas</h3>
+      <p>IF, VLOOKUP, HLOOKUP, INDEX/MATCH — the bread and butter of financial analysis work.</p>
+      <div class="path-topics">
+        <span class="tag gold">IF/IFS</span><span class="tag gold">VLOOKUP</span><span class="tag gold">INDEX/MATCH</span><span class="tag gold">SUMIF</span>
+      </div>
+    </div>
+    <div class="path-card intermediate" onclick="scrollTo('lessons');setLesson(2)">
+      <div class="path-icon">💰</div>
+      <h3>Module 3: Financial Functions</h3>
+      <p>NPV, IRR, PMT, FV, PV — time value of money calculations and investment analysis.</p>
+      <div class="path-topics">
+        <span class="tag gold">NPV/IRR</span><span class="tag gold">PMT/PV/FV</span><span class="tag gold">XNPV/XIRR</span><span class="tag gold">RATE</span>
+      </div>
+    </div>
+    <div class="path-card advanced" onclick="scrollTo('lessons');setLesson(3)">
+      <div class="path-icon">🔍</div>
+      <h3>Module 4: Data Analysis</h3>
+      <p>PivotTables, sorting, filtering, data validation, conditional formatting, and Power Query basics.</p>
+      <div class="path-topics">
+        <span class="tag red">PivotTables</span><span class="tag red">Power Query</span><span class="tag red">Data Validation</span><span class="tag red">Filters</span>
+      </div>
+    </div>
+    <div class="path-card advanced" onclick="scrollTo('lessons');setLesson(4)">
+      <div class="path-icon">📈</div>
+      <h3>Module 5: Advanced Formulas</h3>
+      <p>OFFSET, INDIRECT, array formulas, XLOOKUP, dynamic arrays, and advanced logical functions.</p>
+      <div class="path-topics">
+        <span class="tag red">XLOOKUP</span><span class="tag red">OFFSET</span><span class="tag red">Array Formulas</span><span class="tag red">Dynamic Arrays</span>
+      </div>
+    </div>
+    <div class="path-card expert" onclick="scrollTo('lessons');setLesson(5)">
+      <div class="path-icon">🏦</div>
+      <h3>Module 6: Financial Modeling</h3>
+      <p>3-statement models, DCF analysis, LBO basics, sensitivity analysis, and scenario/data tables.</p>
+      <div class="path-topics">
+        <span class="tag blue">DCF Model</span><span class="tag blue">3-Statement</span><span class="tag blue">Sensitivity</span><span class="tag blue">Scenarios</span>
+      </div>
+    </div>
+    <div class="path-card expert" onclick="scrollTo('lessons');setLesson(6)">
+      <div class="path-icon">📊</div>
+      <h3>Module 7: Charts & Dashboards</h3>
+      <p>Waterfall charts, combo charts, dynamic dashboards, sparklines, and professional presentation formatting.</p>
+      <div class="path-topics">
+        <span class="tag blue">Waterfall</span><span class="tag blue">Dashboards</span><span class="tag blue">Combo Charts</span><span class="tag blue">Sparklines</span>
+      </div>
+    </div>
+    <div class="path-card expert" onclick="scrollTo('lessons');setLesson(7)">
+      <div class="path-icon">⚡</div>
+      <h3>Module 8: Automation & Power</h3>
+      <p>Named ranges, macros intro, Solver, Goal Seek, What-If analysis, and data tables for modeling.</p>
+      <div class="path-topics">
+        <span class="tag blue">Solver</span><span class="tag blue">Goal Seek</span><span class="tag blue">Named Ranges</span><span class="tag blue">Data Tables</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FORMULA REFERENCE -->
+<div id="formulas">
+<section class="inner">
+  <div class="section-label">02 — Reference</div>
+  <div class="section-title">Formula Library</div>
+  <p class="section-sub">Every essential formula for finance, with syntax, descriptions, and practical examples from real financial work.</p>
+  <div class="formula-tabs">
+    <button class="ftab active" onclick="filterFormulas('all')">All Formulas</button>
+    <button class="ftab" onclick="filterFormulas('lookup')">Lookup & Reference</button>
+    <button class="ftab" onclick="filterFormulas('financial')">Financial</button>
+    <button class="ftab" onclick="filterFormulas('logical')">Logical</button>
+    <button class="ftab" onclick="filterFormulas('text')">Text & Date</button>
+    <button class="ftab" onclick="filterFormulas('stats')">Statistical</button>
+    <button class="ftab" onclick="filterFormulas('advanced')">Advanced</button>
+  </div>
+  <div class="formula-grid" id="formulaGrid"></div>
+</section>
+</div>
+
+<!-- LESSONS -->
+<section id="lessons">
+<div class="lesson-wrapper">
+  <div class="section-label">03 — Interactive Lessons</div>
+  <div class="section-title">Learn by Doing</div>
+  <p class="section-sub">Interactive lessons with real spreadsheet data, step-by-step guides, and formula explanations.</p>
+  <div class="lesson-header" id="lessonTabs"></div>
+  <div id="lessonContents"></div>
+</div>
+</section>
+
+<!-- EXERCISES -->
+<div id="exercises">
+<div class="inner">
+  <div class="section-label">04 — Practice</div>
+  <div class="section-title">Hands-On Exercises</div>
+  <p class="section-sub">60 practice exercises from basic to expert. Work through each scenario and check your answer.</p>
+  <div class="exercise-grid" id="exerciseGrid"></div>
+</div>
+</div>
+
+<!-- QUIZ -->
+<section id="quiz">
+<div class="inner">
+  <div class="section-label">05 — Test Yourself</div>
+  <div class="section-title">100-Question Quiz Bank</div>
+  <p class="section-sub">Challenge yourself with questions ranging from basic formulas to advanced financial modeling scenarios.</p>
+  <div class="quiz-difficulty-select">
+    <button class="diff-btn active" onclick="startQuiz('all')">All Levels</button>
+    <button class="diff-btn" onclick="startQuiz('basic')">Basic</button>
+    <button class="diff-btn" onclick="startQuiz('intermediate')">Intermediate</button>
+    <button class="diff-btn" onclick="startQuiz('advanced')">Advanced</button>
+    <button class="diff-btn" onclick="startQuiz('expert')">Expert</button>
+  </div>
+  <div class="quiz-container">
+    <div class="quiz-header">
+      <h3 id="quizTitle">Excel for Finance Quiz</h3>
+      <div class="quiz-meta" id="quizMeta">Question 1 of 20</div>
+    </div>
+    <div class="quiz-progress"><div class="quiz-progress-fill" id="quizProgress" style="width:5%"></div></div>
+    <div class="quiz-body" id="quizBody"></div>
+    <div class="quiz-footer">
+      <div class="quiz-score-display" id="quizScoreDisplay">Score: 0 / 0</div>
+      <button class="next-btn" id="nextBtn" onclick="nextQuestion()">Next Question →</button>
+    </div>
+  </div>
+</div>
+</section>
+
+<!-- TOOLS -->
+<div id="tools">
+<section class="inner">
+  <div class="section-label">06 — Excel Tools</div>
+  <div class="section-title">Essential Finance Tools</div>
+  <p class="section-sub">Master these built-in Excel tools that every finance professional relies on daily.</p>
+  <div class="tools-grid">
+    <div class="tool-card">
+      <div class="tool-icon">🔄</div>
+      <h3>PivotTables</h3>
+      <p>Summarize, analyze, explore, and present data dynamically. The single most powerful tool for financial reporting.</p>
+      <span class="tool-use">Reporting & Summarizing</span>
+    </div>
+    <div class="tool-card">
+      <div class="tool-icon">🎯</div>
+      <h3>Goal Seek</h3>
+      <p>Work backwards — find the input value needed to achieve a target result. Essential for break-even and target analysis.</p>
+      <span class="tool-use">What-If Analysis</span>
+    </div>
+    <div class="tool-card">
+      <div class="tool-icon">📐</div>
+      <h3>Solver</h3>
+      <p>Optimization tool for maximizing profit, minimizing cost, or meeting constraints across multiple variables.</p>
+      <span class="tool-use">Optimization</span>
+    </div>
+    <div class="tool-card">
+      <div class="tool-icon">📋</div>
+      <h3>Data Tables</h3>
+      <p>Create sensitivity tables showing how changes in 1 or 2 inputs affect your financial model outputs.</p>
+      <span class="tool-use">Sensitivity Analysis</span>
+    </div>
+    <div class="tool-card">
+      <div class="tool-icon">🎬</div>
+      <h3>Scenario Manager</h3>
+      <p>Save and switch between named scenarios (base, bull, bear) to show different outcome assumptions.</p>
+      <span class="tool-use">Scenario Planning</span>
+    </div>
+    <div class="tool-card">
+      <div class="tool-icon">🔌</div>
+      <h3>Power Query</h3>
+      <p>Transform and clean raw data from multiple sources before loading it into your workbook for analysis.</p>
+      <span class="tool-use">Data Transformation</span>
+    </div>
+    <div class="tool-card">
+      <div class="tool-icon">🎨</div>
+      <h3>Conditional Formatting</h3>
+      <p>Visually highlight trends, outliers, and KPI thresholds with color scales, data bars, and icon sets.</p>
+      <span class="tool-use">Data Visualization</span>
+    </div>
+    <div class="tool-card">
+      <div class="tool-icon">✅</div>
+      <h3>Data Validation</h3>
+      <p>Restrict cell inputs to drop-down lists, number ranges, or custom formulas — prevents model errors.</p>
+      <span class="tool-use">Model Integrity</span>
+    </div>
+    <div class="tool-card">
+      <div class="tool-icon">🔗</div>
+      <h3>Named Ranges</h3>
+      <p>Give meaningful names to cells or ranges (e.g. "TaxRate") to make formulas self-documenting and readable.</p>
+      <span class="tool-use">Model Organization</span>
+    </div>
+    <div class="tool-card">
+      <div class="tool-icon">📦</div>
+      <h3>Flash Fill</h3>
+      <p>Automatically fill data based on recognized patterns — great for quickly parsing or combining text data.</p>
+      <span class="tool-use">Data Cleaning</span>
+    </div>
+    <div class="tool-card">
+      <div class="tool-icon">🔎</div>
+      <h3>Trace Precedents/Dependents</h3>
+      <p>Audit formulas visually — see which cells feed into your formula and which depend on your cell.</p>
+      <span class="tool-use">Formula Auditing</span>
+    </div>
+    <div class="tool-card">
+      <div class="tool-icon">📊</div>
+      <h3>Forecast Sheet</h3>
+      <p>One-click forecasting using exponential smoothing — generate predictions with confidence intervals instantly.</p>
+      <span class="tool-use">Forecasting</span>
+    </div>
+  </div>
+</section>
+</div>
+
+<!-- FINANCIAL MODELING -->
+<section id="modeling">
+<div class="modeling-wrapper">
+  <div class="section-label">07 — Applied Modeling</div>
+  <div class="section-title">Financial Model Templates</div>
+  <p class="section-sub">Explore sample financial model structures with real formula logic used in investment banking and corporate finance.</p>
+  <div class="model-tabs">
+    <button class="model-tab active" onclick="switchModel('dcf')">DCF Model</button>
+    <button class="model-tab" onclick="switchModel('income')">Income Statement</button>
+    <button class="model-tab" onclick="switchModel('sensitivity')">Sensitivity Table</button>
+    <button class="model-tab" onclick="switchModel('lbo')">LBO Summary</button>
+  </div>
+  <div id="modelDcf" class="model-content active">
+    <div class="model-grid">
+      <div class="model-box">
+        <h4>📊 DCF — Free Cash Flow Projection</h4>
+        <table class="finance-table">
+          <tr><th>Metric</th><th>Year 1</th><th>Year 2</th><th>Year 3</th><th>Year 4</th><th>Year 5</th></tr>
+          <tr><td>Revenue</td><td>$10,000</td><td>$11,500</td><td>$13,225</td><td>$15,209</td><td>$17,490</td></tr>
+          <tr><td>Revenue Growth</td><td>—</td><td>15%</td><td>15%</td><td>15%</td><td>15%</td></tr>
+          <tr><td>EBITDA Margin</td><td>25%</td><td>26%</td><td>27%</td><td>28%</td><td>28%</td></tr>
+          <tr><td>EBITDA</td><td>$2,500</td><td>$2,990</td><td>$3,571</td><td>$4,259</td><td>$4,897</td></tr>
+          <tr><td>D&A</td><td>($400)</td><td>($460)</td><td>($529)</td><td>($608)</td><td>($700)</td></tr>
+          <tr><td>EBIT</td><td>$2,100</td><td>$2,530</td><td>$3,042</td><td>$3,651</td><td>$4,197</td></tr>
+          <tr><td>Tax (25%)</td><td>($525)</td><td>($633)</td><td>($761)</td><td>($913)</td><td>($1,049)</td></tr>
+          <tr><td>NOPAT</td><td>$1,575</td><td>$1,898</td><td>$2,282</td><td>$2,738</td><td>$3,148</td></tr>
+          <tr><td>+D&A</td><td>$400</td><td>$460</td><td>$529</td><td>$608</td><td>$700</td></tr>
+          <tr><td>-CapEx</td><td>($500)</td><td>($575)</td><td>($661)</td><td>($760)</td><td>($875)</td></tr>
+          <tr><td>-ΔNWC</td><td>($100)</td><td>($115)</td><td>($132)</td><td>($152)</td><td>($175)</td></tr>
+          <tr class="total-row"><td>Free Cash Flow</td><td class="positive">$1,375</td><td class="positive">$1,668</td><td class="positive">$2,018</td><td class="positive">$2,434</td><td class="positive">$2,798</td></tr>
+        </table>
+      </div>
+      <div class="model-box">
+        <h4>💰 DCF — Valuation Summary</h4>
+        <table class="finance-table">
+          <tr><th>Item</th><th>Value</th></tr>
+          <tr><td>WACC (Discount Rate)</td><td>10.0%</td></tr>
+          <tr><td>Terminal Growth Rate</td><td>3.0%</td></tr>
+          <tr><td>PV of FCFs (Yr 1-5)</td><td class="positive">$7,823</td></tr>
+          <tr><td>Terminal Value</td><td>$41,219</td></tr>
+          <tr><td>PV of Terminal Value</td><td>$25,600</td></tr>
+          <tr class="total-row"><td>Enterprise Value</td><td class="positive">$33,423</td></tr>
+          <tr><td>(-) Net Debt</td><td class="negative">($5,000)</td></tr>
+          <tr class="total-row"><td>Equity Value</td><td class="positive">$28,423</td></tr>
+          <tr><td>Shares Outstanding</td><td>1,000</td></tr>
+          <tr class="total-row"><td>Implied Share Price</td><td class="positive">$28.42</td></tr>
+        </table>
+        <div class="tip-box" style="margin-top:1rem;">
+          <strong>Key Formula:</strong> Terminal Value = FCF₅ × (1+g) / (WACC-g)<br>
+          <code style="font-family:'DM Mono',monospace;font-size:0.7rem;">=B15*(1+C2)/(C1-C2)</code>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div id="modelIncome" class="model-content">
+    <div class="model-grid">
+      <div class="model-box">
+        <h4>📋 Income Statement (3-Year)</h4>
+        <table class="finance-table">
+          <tr><th>Line Item</th><th>FY2022</th><th>FY2023</th><th>FY2024E</th></tr>
+          <tr><td>Revenue</td><td>$85,000</td><td>$96,750</td><td>$110,294</td></tr>
+          <tr><td>Cost of Revenue</td><td>($51,000)</td><td>($57,163)</td><td>($65,073)</td></tr>
+          <tr class="total-row"><td>Gross Profit</td><td class="positive">$34,000</td><td class="positive">$39,588</td><td class="positive">$45,221</td></tr>
+          <tr><td>Gross Margin</td><td>40.0%</td><td>40.9%</td><td>41.0%</td></tr>
+          <tr><td>SG&A</td><td>($12,750)</td><td>($14,513)</td><td>($16,544)</td></tr>
+          <tr><td>R&D</td><td>($8,500)</td><td>($9,675)</td><td>($11,029)</td></tr>
+          <tr class="total-row"><td>EBIT (Operating Income)</td><td class="positive">$12,750</td><td class="positive">$15,400</td><td class="positive">$17,648</td></tr>
+          <tr><td>Interest Expense</td><td>($1,200)</td><td>($1,100)</td><td>($980)</td></tr>
+          <tr><td>Other Income</td><td>$300</td><td>$420</td><td>$500</td></tr>
+          <tr class="total-row"><td>Pre-Tax Income</td><td>$11,850</td><td>$14,720</td><td>$17,168</td></tr>
+          <tr><td>Tax (21%)</td><td>($2,489)</td><td>($3,091)</td><td>($3,605)</td></tr>
+          <tr class="total-row"><td>Net Income</td><td class="positive">$9,361</td><td class="positive">$11,629</td><td class="positive">$13,563</td></tr>
+          <tr><td>EPS (1,000 shares)</td><td>$9.36</td><td>$11.63</td><td>$13.56</td></tr>
+        </table>
+      </div>
+      <div class="model-box">
+        <h4>🔢 Key Excel Formulas Used</h4>
+        <div class="code-block">
+<span class="comment">// Gross Profit</span>
+<span class="func">=</span>Revenue - Cost_of_Revenue
+
+<span class="comment">// Gross Margin %</span>
+<span class="func">=</span>Gross_Profit / Revenue
+
+<span class="comment">// EBIT</span>
+<span class="func">=</span>Gross_Profit - SGA - RD
+
+<span class="comment">// Net Income</span>
+<span class="func">=</span>PreTax_Income * (<span class="num">1</span> - Tax_Rate)
+
+<span class="comment">// YoY Revenue Growth</span>
+<span class="func">=</span>(Current_Rev / Prior_Rev) - <span class="num">1</span>
+
+<span class="comment">// Forecasted Revenue (driver)</span>
+<span class="func">=</span>Prior_Rev * (<span class="num">1</span> + Growth_Rate)
+        </div>
+        <div class="tip-box">
+          <strong>Model Best Practice:</strong> Always separate assumptions from calculations. Use a dedicated "Assumptions" tab for WACC, growth rates, and margins.
+        </div>
+      </div>
+    </div>
+  </div>
+  <div id="modelSensitivity" class="model-content">
+    <div class="model-box">
+      <h4>📊 2-Variable Sensitivity Table — Implied Share Price vs WACC & Terminal Growth Rate</h4>
+      <p style="font-size:0.8rem;color:var(--muted);margin-bottom:1rem;">Built with Excel Data Tables (What-If Analysis). Row = WACC, Column = Terminal Growth Rate</p>
+      <table class="excel-table">
+        <tr>
+          <th>WACC \ TGR</th><th>1.0%</th><th>1.5%</th><th>2.0%</th><th>2.5%</th><th>3.0%</th><th>3.5%</th><th>4.0%</th>
+        </tr>
+        <tr><td class="header-col">8.0%</td><td>$38.21</td><td>$40.15</td><td>$42.31</td><td>$44.72</td><td>$47.41</td><td>$50.43</td><td>$53.87</td></tr>
+        <tr><td class="header-col">8.5%</td><td>$34.18</td><td>$35.82</td><td>$37.62</td><td>$39.61</td><td>$41.82</td><td>$44.28</td><td>$46.04</td></tr>
+        <tr><td class="header-col">9.0%</td><td>$30.77</td><td>$32.14</td><td>$33.62</td><td>$35.24</td><td>$37.02</td><td>$39.00</td><td>$41.21</td></tr>
+        <tr><td class="header-col">9.5%</td><td>$27.83</td><td>$29.00</td><td>$30.26</td><td>$31.63</td><td>$33.13</td><td>$34.78</td><td>$36.61</td></tr>
+        <tr><td class="header-col result">10.0%</td><td class="result">$25.26</td><td class="result">$26.28</td><td class="result">$27.38</td><td class="result">$28.58</td><td class="result">$28.42</td><td class="result">$31.38</td><td class="result">$33.00</td></tr>
+        <tr><td class="header-col">10.5%</td><td>$23.00</td><td>$23.90</td><td>$24.87</td><td>$25.91</td><td>$27.05</td><td>$28.29</td><td>$29.65</td></tr>
+        <tr><td class="header-col">11.0%</td><td>$20.98</td><td>$21.79</td><td>$22.65</td><td>$23.58</td><td>$24.59</td><td>$25.68</td><td>$26.87</td></tr>
+        <tr><td class="header-col">11.5%</td><td>$19.18</td><td>$19.90</td><td>$20.67</td><td>$21.49</td><td>$22.38</td><td>$23.34</td><td>$24.38</td></tr>
+        <tr><td class="header-col">12.0%</td><td>$17.55</td><td>$18.20</td><td>$18.90</td><td>$19.64</td><td>$20.43</td><td>$21.28</td><td>$22.20</td></tr>
+      </table>
+      <div class="tip-box" style="margin-top:1.2rem;">
+        <strong>How to Build:</strong> Enter your base formula in the top-left intersection cell. Select the table range, go to <em>Data → What-If Analysis → Data Table</em>, set Row Input (WACC cell) and Column Input (TGR cell), click OK.
+      </div>
+    </div>
+  </div>
+  <div id="modelLbo" class="model-content">
+    <div class="model-grid">
+      <div class="model-box">
+        <h4>⚡ LBO — Transaction Summary</h4>
+        <table class="finance-table">
+          <tr><th>Sources & Uses</th><th>Amount</th><th>%</th></tr>
+          <tr><td>Senior Debt (4.0x EBITDA)</td><td>$40,000</td><td>50%</td></tr>
+          <tr><td>Subordinated Debt (2.0x)</td><td>$20,000</td><td>25%</td></tr>
+          <tr><td>Sponsor Equity</td><td>$20,000</td><td>25%</td></tr>
+          <tr class="total-row"><td>Total Sources</td><td>$80,000</td><td>100%</td></tr>
+          <tr><td>Enterprise Value (8.0x EBITDA)</td><td>$80,000</td><td>—</td></tr>
+          <tr><td>Transaction Fees</td><td>$1,600</td><td>2%</td></tr>
+        </table>
+      </div>
+      <div class="model-box">
+        <h4>📈 LBO — Returns Summary (5-Year Hold)</h4>
+        <table class="finance-table">
+          <tr><th>Metric</th><th>Value</th></tr>
+          <tr><td>Entry EBITDA</td><td>$10,000</td></tr>
+          <tr><td>Entry Multiple (EV/EBITDA)</td><td>8.0x</td></tr>
+          <tr><td>Exit EBITDA (Year 5)</td><td>$14,693</td></tr>
+          <tr><td>Exit Multiple</td><td>8.0x</td></tr>
+          <tr><td>Exit Enterprise Value</td><td>$117,544</td></tr>
+          <tr><td>(-) Remaining Debt</td><td>($35,000)</td></tr>
+          <tr><td>Exit Equity Value</td><td class="positive">$82,544</td></tr>
+          <tr><td>Entry Equity</td><td>$20,000</td></tr>
+          <tr class="total-row"><td>Money-on-Money (MoM)</td><td class="positive">4.1x</td></tr>
+          <tr class="total-row"><td>IRR (5-Year)</td><td class="positive">32.5%</td></tr>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+</section>
+
+<!-- DATASETS -->
+<div id="datasets">
+<section class="inner">
+  <div class="section-label">08 — Sample Data</div>
+  <div class="section-title">Practice Datasets</div>
+  <p class="section-sub">Download ready-to-use datasets for practicing every formula and technique in this curriculum.</p>
+  <div class="dataset-grid" id="datasetGrid"></div>
+</section>
+</div>
+
+<!-- CHEATSHEET -->
+<section id="cheatsheet">
+<div class="sheet-wrapper">
+  <div class="section-label">09 — Quick Reference</div>
+  <div class="section-title">Keyboard Shortcuts</div>
+  <p class="section-sub">The essential shortcuts every finance professional should know by heart — these save hours every week.</p>
+  <div class="shortcut-grid">
+    <div class="shortcut-item"><div class="keys"><span class="key">Ctrl</span><span class="key">Shift</span><span class="key">L</span></div><span class="shortcut-desc">Toggle AutoFilter</span></div>
+    <div class="shortcut-item"><div class="keys"><span class="key">Ctrl</span><span class="key">T</span></div><span class="shortcut-desc">Create Table</span></div>
+    <div class="shortcut-item"><div class="keys"><span class="key">Alt</span><span class="key">=</span></div><span class="shortcut-desc">AutoSum</span></div>
+    <div class="shortcut-item"><div class="keys"><span class="key">F4</span></div><span class="shortcut-desc">Toggle Absolute Reference</span></div>
+    <div class="shortcut-item"><div class="keys"><span class="key">Ctrl</span><span class="key">;</span></div><span class="shortcut-desc">Insert Today's Date</span></div>
+    <div class="shortcut-item"><div class="keys"><span class="key">Ctrl</span><span class="key">Shift</span><span class="key">;</span></div><span class="shortcut-desc">Insert Current Time</span></div>
+    <div class="shortcut-item"><div class="keys"><span class="key">Ctrl</span><span class="key">1</span></div><span class="shortcut-desc">Format Cells Dialog</span></div>
+    <div class="shortcut-item"><div class="keys"><span class="key">Ctrl</span><span class="key">Shift</span><span class="key">$</span></div><span class="shortcut-desc">Currency Format</span></div>
+    <div class="shortcut-item"><div class="keys"><span class="key">Ctrl</span><span class="key">Shift</span><span class="key">%</span></div><span class="shortcut-desc">Percentage Format</span></div>
+    <div class="shortcut-item"><div class="keys"><span class="key">Ctrl</span><span class="key">D</span></div><span class="shortcut-desc">Fill Down</span></div>
+    <div class="shortcut-item"><div class="keys"><span class="key">Ctrl</span><span class="key">R</span></div><span class="shortcut-desc">Fill Right</span></div>
+    <div class="shortcut-item"><div class="keys"><span class="key">Ctrl</span><span class="key">`</span></div><span class="shortcut-desc">Show All Formulas</span></div>
+    <div class="shortcut-item"><div class="keys"><span class="key">F2</span></div><span class="shortcut-desc">Edit Cell</span></div>
+    <div class="shortcut-item"><div class="keys"><span class="key">Ctrl</span><span class="key">Z</span></div><span class="shortcut-desc">Undo</span></div>
+    <div class="shortcut-item"><div class="keys"><span class="key">Ctrl</span><span class="key">Home</span></div><span class="shortcut-desc">Go to Cell A1</span></div>
+    <div class="shortcut-item"><div class="keys"><span class="key">Ctrl</span><span class="key">End</span></div><span class="shortcut-desc">Last Used Cell</span></div>
+    <div class="shortcut-item"><div class="keys"><span class="key">Ctrl</span><span class="key">Shift</span><span class="key">↓</span></div><span class="shortcut-desc">Select to Last Row</span></div>
+    <div class="shortcut-item"><div class="keys"><span class="key">Alt</span><span class="key">D</span><span class="key">P</span></div><span class="shortcut-desc">PivotTable Wizard</span></div>
+    <div class="shortcut-item"><div class="keys"><span class="key">Ctrl</span><span class="key">Shift</span><span class="key">Enter</span></div><span class="shortcut-desc">Array Formula (Legacy)</span></div>
+    <div class="shortcut-item"><div class="keys"><span class="key">Alt</span><span class="key">H</span><span class="key">O</span><span class="key">I</span></div><span class="shortcut-desc">AutoFit Column Width</span></div>
+  </div>
+</div>
+</section>
+
+<footer>
+  <p>Built for finance learners everywhere · <strong>ExcelFin Academy</strong> · Master the tool that runs Wall Street</p>
+</footer>
+
+<script>
+// ===== SCROLL UTILITY =====
+function scrollTo(id){document.getElementById(id).scrollIntoView({behavior:'smooth'});}
+function setLesson(idx){
+  document.querySelectorAll('.lesson-nav-btn').forEach((b,i)=>{b.classList.toggle('active',i===idx);});
+  document.querySelectorAll('.lesson-content').forEach((c,i)=>{c.classList.toggle('active',i===idx);});
+}
+
+// ===== READING PROGRESS =====
+window.addEventListener('scroll',()=>{
+  const doc = document.documentElement;
+  const pct = (window.scrollY/(doc.scrollHeight-doc.clientHeight))*100;
+  document.getElementById('readingProgress').style.width = pct+'%';
+});
+
+// ===== ANIMATED COUNTERS =====
+const observer = new IntersectionObserver((entries)=>{
+  entries.forEach(e=>{
+    if(e.isIntersecting && e.target.dataset.target){
+      const target = parseInt(e.target.dataset.target);
+      let count = 0; const step = Math.ceil(target/40);
+      const timer = setInterval(()=>{count=Math.min(count+step,target);e.target.textContent=count+(target>=100?'+':'');if(count>=target)clearInterval(timer);},40);
+      observer.unobserve(e.target);
+    }
+  });
+},{threshold:0.5});
+document.querySelectorAll('[data-target]').forEach(el=>observer.observe(el));
+
+// ===== FORMULA DATA =====
+const formulas = [
+  {cat:'lookup',name:'VLOOKUP',desc:'Looks up a value in the first column of a table and returns a value in the same row from a specified column.',syntax:'=VLOOKUP(lookup_value, table_array, col_index, [range_lookup])',example:'=VLOOKUP(A2, StockTable, 3, FALSE) → Returns stock price'},
+  {cat:'lookup',name:'XLOOKUP',desc:'Modern replacement for VLOOKUP. Searches a range and returns a match from another range. Can look in any direction.',syntax:'=XLOOKUP(lookup_value, lookup_array, return_array, [not_found])',example:'=XLOOKUP(A2, Tickers, Prices, "N/A")'},
+  {cat:'lookup',name:'INDEX/MATCH',desc:'Power combo: INDEX returns a value from a range, MATCH finds its position. More flexible than VLOOKUP.',syntax:'=INDEX(return_range, MATCH(lookup, lookup_range, 0))',example:'=INDEX(C2:C100, MATCH("AAPL", A2:A100, 0))'},
+  {cat:'lookup',name:'HLOOKUP',desc:'Like VLOOKUP but searches horizontally across the first row of a table.',syntax:'=HLOOKUP(lookup_value, table_array, row_index, [range_lookup])',example:'=HLOOKUP("Q4", BudgetTable, 3, FALSE)'},
+  {cat:'lookup',name:'MATCH',desc:'Returns the relative position of an item in a range. Use 0 for exact match in financial models.',syntax:'=MATCH(lookup_value, lookup_array, [match_type])',example:'=MATCH("Revenue", A1:A50, 0) → Returns row number'},
+  {cat:'lookup',name:'INDEX',desc:'Returns the value at the intersection of a row and column in a range. Often paired with MATCH.',syntax:'=INDEX(array, row_num, [col_num])',example:'=INDEX(FinancialData, 5, 3) → Value at row 5, col 3'},
+  {cat:'lookup',name:'OFFSET',desc:'Returns a reference offset from a starting cell. Useful for dynamic ranges in charts and models.',syntax:'=OFFSET(reference, rows, cols, [height], [width])',example:'=SUM(OFFSET(B2, 0, 0, 12, 1)) → Sum 12 rows from B2'},
+  {cat:'lookup',name:'INDIRECT',desc:'Returns the reference specified by a text string. Enables dynamic formula references using sheet names.',syntax:'=INDIRECT(ref_text, [a1_style])',example:'=INDIRECT("Sheet"&A1&"!B5") → Dynamic sheet reference'},
+  {cat:'financial',name:'NPV',desc:'Net Present Value: calculates the present value of a series of future cash flows at a given discount rate.',syntax:'=NPV(rate, value1, [value2], ...)',example:'=NPV(10%, B3:B7) + B2 → Remember: initial investment at t=0'},
+  {cat:'financial',name:'IRR',desc:'Internal Rate of Return: finds the discount rate that makes NPV = 0. Critical for investment analysis.',syntax:'=IRR(values, [guess])',example:'=IRR(C2:C7) → Returns the IRR of cash flow series'},
+  {cat:'financial',name:'XNPV',desc:'NPV with specific dates — more accurate than NPV when cash flows are not evenly spaced.',syntax:'=XNPV(rate, values, dates)',example:'=XNPV(0.10, C2:C8, D2:D8)'},
+  {cat:'financial',name:'XIRR',desc:'IRR with specific dates. Use this for real-world investments with irregular timing.',syntax:'=XIRR(values, dates, [guess])',example:'=XIRR(C2:C8, D2:D8, 0.1)'},
+  {cat:'financial',name:'PMT',desc:'Calculates the periodic payment for a loan or annuity — covers both principal and interest.',syntax:'=PMT(rate, nper, pv, [fv], [type])',example:'=PMT(5%/12, 360, -300000) → Monthly mortgage payment'},
+  {cat:'financial',name:'PV',desc:'Present Value: the current value of a future cash flow or annuity stream given a discount rate.',syntax:'=PV(rate, nper, pmt, [fv], [type])',example:'=PV(8%, 10, 0, -1000000) → PV of $1M in 10 years'},
+  {cat:'financial',name:'FV',desc:'Future Value: calculates the value of an investment or loan at a future date.',syntax:'=FV(rate, nper, pmt, [pv], [type])',example:'=FV(7%, 30, -5000, 0) → FV of $5k/yr for 30 years'},
+  {cat:'financial',name:'RATE',desc:'Calculates the interest rate per period of an annuity — useful for solving for yield or cost of debt.',syntax:'=RATE(nper, pmt, pv, [fv], [type])',example:'=RATE(120, -1200, 100000)*12 → Annual mortgage rate'},
+  {cat:'financial',name:'NPER',desc:'Number of periods required to pay off a loan or reach a savings goal.',syntax:'=NPER(rate, pmt, pv, [fv], [type])',example:'=NPER(5%/12, -500, 20000) → Months to pay off $20k'},
+  {cat:'financial',name:'MIRR',desc:'Modified IRR — reinvests positive cash flows at a financing rate and reinvestment rate.',syntax:'=MIRR(values, finance_rate, reinvest_rate)',example:'=MIRR(C2:C8, 0.08, 0.12)'},
+  {cat:'financial',name:'IPMT',desc:'Calculates the interest portion of a specific loan payment in a given period.',syntax:'=IPMT(rate, per, nper, pv, [fv])',example:'=IPMT(5%/12, 24, 360, -300000) → Interest in payment 24'},
+  {cat:'financial',name:'PPMT',desc:'Calculates the principal portion of a specific loan payment in a given period.',syntax:'=PPMT(rate, per, nper, pv, [fv])',example:'=PPMT(5%/12, 24, 360, -300000) → Principal in payment 24'},
+  {cat:'logical',name:'IF',desc:'The most-used function in finance. Returns one value if a condition is true, another if false.',syntax:'=IF(logical_test, value_if_true, value_if_false)',example:'=IF(Revenue>0, "Profitable", "Loss")'},
+  {cat:'logical',name:'IFS',desc:'Tests multiple conditions in order and returns the first matching result. Cleaner than nested IFs.',syntax:'=IFS(condition1, value1, condition2, value2, ...)',example:'=IFS(Score>90,"A",Score>80,"B",Score>70,"C")'},
+  {cat:'logical',name:'AND',desc:'Returns TRUE only if ALL conditions are true. Commonly used inside IF for multi-condition tests.',syntax:'=AND(logical1, [logical2], ...)',example:'=IF(AND(Revenue>1000, Growth>10%), "High Performer", "")'},
+  {cat:'logical',name:'OR',desc:'Returns TRUE if ANY condition is true.',syntax:'=OR(logical1, [logical2], ...)',example:'=IF(OR(Debt>100%, ICR<1.5), "Risk Flag", "OK")'},
+  {cat:'logical',name:'IFERROR',desc:'Traps errors and returns a custom value instead of #N/A, #DIV/0!, etc. Essential for clean models.',syntax:'=IFERROR(value, value_if_error)',example:'=IFERROR(VLOOKUP(A2,Table,3,0), "Not Found")'},
+  {cat:'logical',name:'SUMIF',desc:'Sums values in a range that meet a single condition.',syntax:'=SUMIF(range, criteria, [sum_range])',example:'=SUMIF(Department, "Finance", Revenue) → Total Finance revenue'},
+  {cat:'logical',name:'SUMIFS',desc:'Sums values meeting multiple conditions — the workhorse of financial reporting.',syntax:'=SUMIFS(sum_range, criteria_range1, criteria1, ...)',example:'=SUMIFS(Sales, Region, "North", Year, 2024)'},
+  {cat:'logical',name:'COUNTIFS',desc:'Counts cells meeting multiple criteria across multiple ranges.',syntax:'=COUNTIFS(range1, criteria1, [range2, criteria2]...)',example:'=COUNTIFS(Dept,"Sales",Status,"Active")'},
+  {cat:'stats',name:'AVERAGE',desc:'Calculates the arithmetic mean of a range of numbers.',syntax:'=AVERAGE(number1, [number2], ...)',example:'=AVERAGE(B2:B13) → Average monthly revenue'},
+  {cat:'stats',name:'AVERAGEIFS',desc:'Average of cells meeting multiple criteria — like SUMIFS but for averages.',syntax:'=AVERAGEIFS(avg_range, criteria_range1, criteria1...)',example:'=AVERAGEIFS(PE_Ratios, Sector, "Tech", Cap, ">10B")'},
+  {cat:'stats',name:'STDEV',desc:'Calculates standard deviation — measures volatility/risk in financial data.',syntax:'=STDEV(number1, [number2], ...)',example:'=STDEV(Returns) → Historical return volatility'},
+  {cat:'stats',name:'CORREL',desc:'Calculates the correlation coefficient between two ranges (-1 to +1).',syntax:'=CORREL(array1, array2)',example:'=CORREL(StockA_Returns, StockB_Returns)'},
+  {cat:'stats',name:'FORECAST.LINEAR',desc:'Predicts a future value based on a linear trend from historical data.',syntax:'=FORECAST.LINEAR(x, known_ys, known_xs)',example:'=FORECAST.LINEAR(2026, Revenue, Year)'},
+  {cat:'stats',name:'PERCENTILE',desc:'Returns the k-th percentile of values in a range. Useful for distribution analysis.',syntax:'=PERCENTILE(array, k)',example:'=PERCENTILE(Salaries, 0.75) → 75th percentile salary'},
+  {cat:'text',name:'TEXT',desc:'Converts a number to text in a specified format — useful for dashboards and labels.',syntax:'=TEXT(value, format_text)',example:'=TEXT(Revenue, "$#,##0.00") → "$1,234.56"'},
+  {cat:'text',name:'CONCATENATE / &',desc:'Joins text strings. Use & operator for simpler syntax.',syntax:'=A1&" "&B1  or  =CONCATENATE(A1," ",B1)',example:'=Ticker&" - "&CompanyName → "AAPL - Apple Inc."'},
+  {cat:'text',name:'LEFT/MID/RIGHT',desc:'Extract a specified number of characters from the left, middle, or right of a text string.',syntax:'=LEFT(text, num_chars)  =MID(text, start, num)',example:'=LEFT(AccountCode, 3) → First 3 chars of code'},
+  {cat:'text',name:'TRIM',desc:'Removes all extra spaces from text — essential when cleaning imported financial data.',syntax:'=TRIM(text)',example:'=TRIM(A2) → Removes leading/trailing spaces'},
+  {cat:'text',name:'TODAY/NOW',desc:'Returns today\'s date or current date and time. Recalculates every time the file opens.',syntax:'=TODAY()  or  =NOW()',example:'=TODAY()-StartDate → Days since project started'},
+  {cat:'text',name:'EOMONTH',desc:'Returns the last day of the month a specified number of months before or after a date.',syntax:'=EOMONTH(start_date, months)',example:'=EOMONTH(TODAY(), 0) → Last day of current month'},
+  {cat:'text',name:'NETWORKDAYS',desc:'Calculates the number of working days between two dates, excluding weekends and holidays.',syntax:'=NETWORKDAYS(start_date, end_date, [holidays])',example:'=NETWORKDAYS(A2, B2, Holidays) → Business days'},
+  {cat:'advanced',name:'CHOOSE',desc:'Returns one of up to 254 values based on an index number. Great for building scenario switches.',syntax:'=CHOOSE(index_num, value1, value2, ...)',example:'=CHOOSE(ScenarioSwitch, BullRevenue, BaseRevenue, BearRevenue)'},
+  {cat:'advanced',name:'LARGE/SMALL',desc:'Returns the k-th largest or smallest value in a range.',syntax:'=LARGE(array, k)  =SMALL(array, k)',example:'=LARGE(Returns, 1) → Best performing return'},
+  {cat:'advanced',name:'UNIQUE',desc:'Returns unique values from a range. Dynamic array function (Excel 365/2019+).',syntax:'=UNIQUE(array, [by_col], [exactly_once])',example:'=UNIQUE(Ticker_Column) → Deduplicated ticker list'},
+  {cat:'advanced',name:'FILTER',desc:'Returns a filtered array based on criteria. Game-changing dynamic array function.',syntax:'=FILTER(array, include, [if_empty])',example:'=FILTER(StockData, Sector="Technology")'},
+  {cat:'advanced',name:'SORT/SORTBY',desc:'Sorts an array dynamically. SORTBY sorts by one or more separate arrays.',syntax:'=SORT(array, [sort_index], [order])  =SORTBY(array, by_array)',example:'=SORT(FILTER(Data, Returns>0), 2, -1) → Top performers'},
+  {cat:'advanced',name:'SUMPRODUCT',desc:'Multiplies arrays element-by-element then sums the results. Powerful for weighted calculations.',syntax:'=SUMPRODUCT(array1, array2, ...)',example:'=SUMPRODUCT(Weights, Returns) → Weighted portfolio return'},
+];
+
+function renderFormulas(cat){
+  const grid = document.getElementById('formulaGrid');
+  const filtered = cat==='all' ? formulas : formulas.filter(f=>f.cat===cat);
+  grid.innerHTML = filtered.map(f=>`
+    <div class="formula-card">
+      <div class="formula-name">${f.name}</div>
+      <div class="formula-desc">${f.desc}</div>
+      <div class="formula-syntax">${f.syntax}</div>
+      <div class="formula-example">${f.example}</div>
+    </div>`).join('');
+}
+function filterFormulas(cat){
+  document.querySelectorAll('.ftab').forEach(t=>t.classList.remove('active'));
+  event.target.classList.add('active');
+  renderFormulas(cat);
+}
+renderFormulas('all');
+
+// ===== LESSONS =====
+const lessonData = [
+  {
+    label:'1. Foundations',
+    html:`<div class="lesson-box">
+      <h3>🌱 Cell References: Relative vs Absolute</h3>
+      <p style="font-size:0.85rem;color:var(--muted);margin-bottom:1rem;line-height:1.7;">This is the most important concept in Excel. Getting this wrong breaks every financial model.</p>
+      <table class="excel-table">
+        <tr><th>Row</th><th>A: Revenue</th><th>B: Tax Rate</th><th>C: Tax Amount</th><th>D: Formula Used</th></tr>
+        <tr><td>1</td><td>$10,000</td><td>25%</td><td class="result">$2,500</td><td class="formula">=A1*$B$1</td></tr>
+        <tr><td>2</td><td>$12,000</td><td></td><td class="result">$3,000</td><td class="formula">=A2*$B$1</td></tr>
+        <tr><td>3</td><td>$15,000</td><td></td><td class="result">$3,750</td><td class="formula">=A3*$B$1</td></tr>
+      </table>
+      <div class="tip-box"><strong>Rule:</strong> Use <span class="formula-pill">$B$1</span> (absolute) for the tax rate because it doesn't change row-to-row. Use <span class="formula-pill">A1</span> (relative) for revenue because it should adjust as you copy down. Press <strong>F4</strong> to toggle between reference types.</div>
+      <h3 style="margin-top:1.5rem;">Essential Arithmetic in Finance</h3>
+      <table class="excel-table">
+        <tr><th>Operation</th><th>Formula</th><th>Finance Use</th></tr>
+        <tr><td>YoY Growth</td><td class="formula">=(B2-B1)/B1</td><td>Revenue growth rate</td></tr>
+        <tr><td>Margin</td><td class="formula">=Gross_Profit/Revenue</td><td>Gross/EBIT/Net margin</td></tr>
+        <tr><td>% of Total</td><td class="formula">=B2/SUM($B$2:$B$13)</td><td>Segment mix analysis</td></tr>
+        <tr><td>CAGR</td><td class="formula">=(End/Start)^(1/Years)-1</td><td>Compound annual growth</td></tr>
+      </table>
+    </div>`
+  },
+  {
+    label:'2. Lookup Formulas',
+    html:`<div class="lesson-box">
+      <h3>🔍 VLOOKUP vs INDEX/MATCH vs XLOOKUP</h3>
+      <table class="excel-table">
+        <tr><th>Ticker</th><th>Company</th><th>Price</th><th>Sector</th></tr>
+        <tr><td>AAPL</td><td>Apple Inc.</td><td>$189.50</td><td>Technology</td></tr>
+        <tr><td>MSFT</td><td>Microsoft Corp</td><td>$415.22</td><td>Technology</td></tr>
+        <tr><td>JPM</td><td>JPMorgan Chase</td><td>$196.88</td><td>Financials</td></tr>
+        <tr><td>BRK.B</td><td>Berkshire Hathaway</td><td>$358.41</td><td>Financials</td></tr>
+      </table>
+      <div class="code-block">
+<span class="comment">// VLOOKUP — finds AAPL price (col 3 of table)</span>
+<span class="func">=VLOOKUP</span>(<span class="string">"AAPL"</span>, A2:D5, <span class="num">3</span>, FALSE) → $189.50
+
+<span class="comment">// INDEX/MATCH — same result, more flexible</span>
+<span class="func">=INDEX</span>(C2:C5, <span class="func">MATCH</span>(<span class="string">"AAPL"</span>, A2:A5, <span class="num">0</span>)) → $189.50
+
+<span class="comment">// XLOOKUP — cleanest syntax (Excel 365)</span>
+<span class="func">=XLOOKUP</span>(<span class="string">"AAPL"</span>, A2:A5, C2:C5, <span class="string">"N/A"</span>) → $189.50
+
+<span class="comment">// XLOOKUP — return multiple columns at once!</span>
+<span class="func">=XLOOKUP</span>(<span class="string">"AAPL"</span>, A2:A5, B2:D5) → {Apple, $189.50, Technology}
+      </div>
+      <div class="warn-box"><strong>VLOOKUP Pitfall:</strong> VLOOKUP can only look left-to-right. If your lookup column isn't the leftmost column, use INDEX/MATCH or XLOOKUP instead.</div>
+      <ol class="step-list" style="margin-top:1rem;">
+        <li>Always use <strong>FALSE</strong> (or 0) for exact match in financial models — approximate match can give wrong results on sorted data.</li>
+        <li>Wrap in <span class="formula-pill">IFERROR</span> to handle missing tickers gracefully: <span class="formula-pill">=IFERROR(XLOOKUP(...), "N/A")</span></li>
+        <li>For 2D lookups (find row AND column), use: <span class="formula-pill">=INDEX(Table, MATCH(Row, RowList, 0), MATCH(Col, ColList, 0))</span></li>
+      </ol>
+    </div>`
+  },
+  {
+    label:'3. Financial Functions',
+    html:`<div class="lesson-box">
+      <h3>💰 NPV & IRR — Investment Analysis</h3>
+      <table class="excel-table">
+        <tr><th>Year</th><th>Cash Flow</th><th>PV Factor (10%)</th><th>Present Value</th></tr>
+        <tr><td>0 (Today)</td><td class="negative">-$50,000</td><td>1.000</td><td class="negative">-$50,000</td></tr>
+        <tr><td>1</td><td>$15,000</td><td>0.909</td><td>$13,636</td></tr>
+        <tr><td>2</td><td>$18,000</td><td>0.826</td><td>$14,876</td></tr>
+        <tr><td>3</td><td>$20,000</td><td>0.751</td><td>$15,026</td></tr>
+        <tr><td>4</td><td>$22,000</td><td>0.683</td><td>$15,026</td></tr>
+        <tr><td>5</td><td>$25,000</td><td>0.621</td><td>$15,523</td></tr>
+        <tr><td colspan="3" style="text-align:right;font-weight:600;">NPV</td><td class="result positive">$24,087</td></tr>
+        <tr><td colspan="3" style="text-align:right;font-weight:600;">IRR</td><td class="result positive">28.6%</td></tr>
+      </table>
+      <div class="code-block">
+<span class="comment">// NPV — note: does NOT include Year 0!</span>
+<span class="func">=NPV</span>(<span class="num">10%</span>, B3:B7) + B2  <span class="comment">// B2 = Year 0 investment</span>
+
+<span class="comment">// IRR — include ALL cash flows including Year 0</span>
+<span class="func">=IRR</span>(B2:B7)
+
+<span class="comment">// XNPV — for irregular dates (more accurate)</span>
+<span class="func">=XNPV</span>(<span class="num">0.10</span>, CashFlows, Dates)
+
+<span class="comment">// Monthly mortgage payment — $300k, 30yr, 5%</span>
+<span class="func">=PMT</span>(<span class="num">5%</span>/<span class="num">12</span>, <span class="num">360</span>, -<span class="num">300000</span>) → $1,610.46/month
+      </div>
+      <div class="tip-box"><strong>Decision Rule:</strong> Accept if NPV &gt; 0 AND IRR &gt; hurdle rate (WACC). If the two give conflicting answers, trust NPV for mutually exclusive projects.</div>
+    </div>`
+  },
+  {
+    label:'4. Data Analysis',
+    html:`<div class="lesson-box">
+      <h3>🔄 PivotTable — Summarizing Financial Data</h3>
+      <p style="font-size:0.85rem;color:var(--muted);margin-bottom:1rem;">Source data (transactions):</p>
+      <table class="excel-table">
+        <tr><th>Date</th><th>Region</th><th>Product</th><th>Rep</th><th>Revenue</th><th>COGS</th></tr>
+        <tr><td>01/05/2024</td><td>North</td><td>Software</td><td>Smith</td><td>$45,000</td><td>$12,000</td></tr>
+        <tr><td>01/08/2024</td><td>South</td><td>Hardware</td><td>Jones</td><td>$28,500</td><td>$18,000</td></tr>
+        <tr><td>01/12/2024</td><td>North</td><td>Services</td><td>Smith</td><td>$15,000</td><td>$5,500</td></tr>
+        <tr><td>01/18/2024</td><td>West</td><td>Software</td><td>Lee</td><td>$52,000</td><td>$14,000</td></tr>
+        <tr><td class="formula" colspan="6" style="text-align:center;">...1000+ rows</td></tr>
+      </table>
+      <p style="font-size:0.85rem;color:var(--muted);margin:1rem 0 0.5rem;">Resulting PivotTable (Revenue by Region & Product):</p>
+      <table class="excel-table">
+        <tr><th>Region</th><th>Hardware</th><th>Services</th><th>Software</th><th>Grand Total</th></tr>
+        <tr><td class="header-col">North</td><td>$142,500</td><td>$89,000</td><td>$215,000</td><td>$446,500</td></tr>
+        <tr><td class="header-col">South</td><td>$198,000</td><td>$54,000</td><td>$178,000</td><td>$430,000</td></tr>
+        <tr><td class="header-col">West</td><td>$87,000</td><td>$112,000</td><td>$310,000</td><td>$509,000</td></tr>
+        <tr><td class="header-col result">Grand Total</td><td class="result">$427,500</td><td class="result">$255,000</td><td class="result">$703,000</td><td class="result">$1,385,500</td></tr>
+      </table>
+      <ol class="step-list" style="margin-top:1rem;">
+        <li>Click inside your data → Insert → PivotTable</li>
+        <li>Drag Region to Rows, Product to Columns, Revenue to Values</li>
+        <li>Right-click Values → "Value Field Settings" → choose Sum</li>
+        <li>Use "Show Values As" → "% of Grand Total" to see mix</li>
+        <li>Add a Slicer for Year/Quarter for interactive filtering</li>
+      </ol>
+    </div>`
+  },
+  {
+    label:'5. Advanced Formulas',
+    html:`<div class="lesson-box">
+      <h3>⚡ Dynamic Arrays & SUMPRODUCT</h3>
+      <div class="code-block">
+<span class="comment">// FILTER — Show only Tech stocks with P/E under 30</span>
+<span class="func">=FILTER</span>(StockTable, (Sector=<span class="string">"Tech"</span>) * (PE_Ratio&lt;<span class="num">30</span>))
+
+<span class="comment">// UNIQUE — Get distinct list of customers</span>
+<span class="func">=UNIQUE</span>(CustomerColumn)
+
+<span class="comment">// SORT — Sort revenue descending</span>
+<span class="func">=SORT</span>(RevenueTable, <span class="num">2</span>, -<span class="num">1</span>)  <span class="comment">// col 2, descending</span>
+
+<span class="comment">// SUMPRODUCT — Portfolio weighted return</span>
+<span class="func">=SUMPRODUCT</span>(Weights, Returns)
+<span class="comment">// e.g. 40%×12% + 30%×8% + 30%×15% = 11.7%</span>
+
+<span class="comment">// SUMPRODUCT — Count with multiple criteria</span>
+<span class="func">=SUMPRODUCT</span>((Region=<span class="string">"North"</span>)*(Revenue&gt;<span class="num">100000</span>))
+
+<span class="comment">// OFFSET — Dynamic 12-month rolling sum</span>
+<span class="func">=SUM</span>(<span class="func">OFFSET</span>(B2, <span class="num">0</span>, <span class="num">0</span>, <span class="num">12</span>, <span class="num">1</span>))
+
+<span class="comment">// CHOOSE — Scenario selector (1=Bull, 2=Base, 3=Bear)</span>
+<span class="func">=CHOOSE</span>(ScenarioSwitch, BullRev, BaseRev, BearRev)
+      </div>
+      <div class="tip-box"><strong>SUMPRODUCT Trick:</strong> Multiply boolean arrays to create AND conditions: <span class="formula-pill">=(Condition1)*(Condition2)</span> is equivalent to AND, while <span class="formula-pill">+(Condition1)+(Condition2)</span> is OR. No need for helper columns!</div>
+    </div>`
+  },
+  {
+    label:'6. Modeling',
+    html:`<div class="lesson-box">
+      <h3>🏦 Building a 3-Statement Model</h3>
+      <ol class="step-list">
+        <li><strong>Income Statement First:</strong> Start with revenue drivers → build down to net income. Key link to Balance Sheet: Net Income → Retained Earnings.</li>
+        <li><strong>Balance Sheet:</strong> Assets = Liabilities + Equity. The cash balance is your "plug" — it comes from the Cash Flow Statement.</li>
+        <li><strong>Cash Flow Statement:</strong> Starts with Net Income, adjusts for non-cash items (D&A), working capital changes, capex, and debt movements. Ending cash feeds back to Balance Sheet.</li>
+        <li><strong>Circular References:</strong> Interest expense depends on debt balance, which depends on cash, which depends on interest. Use iterative calculations or a "revolver" to handle this.</li>
+        <li><strong>Error Checks:</strong> Build a check row: <span class="formula-pill">=IF(Assets-Liabilities-Equity=0,"✓","ERROR")</span></li>
+      </ol>
+      <div class="warn-box"><strong>Golden Rule:</strong> NEVER hard-code numbers in formula cells. All assumptions go in a clearly labeled "Inputs" section in a different color. Use cell references in all calculation formulas.</div>
+    </div>`
+  },
+  {
+    label:'7. Charts',
+    html:`<div class="lesson-box">
+      <h3>📊 Waterfall Chart — Bridge Analysis</h3>
+      <table class="excel-table">
+        <tr><th>Category</th><th>Value</th><th>Chart Type</th></tr>
+        <tr><td>FY2023 Revenue</td><td>$96,750</td><td class="header-col">Starting Bar</td></tr>
+        <tr><td>Volume Growth</td><td>+$8,200</td><td class="positive">Positive (Green)</td></tr>
+        <tr><td>Price Increases</td><td>+$5,344</td><td class="positive">Positive (Green)</td></tr>
+        <tr><td>FX Impact</td><td>-$2,100</td><td class="negative">Negative (Red)</td></tr>
+        <tr><td>Lost Customers</td><td>-$3,900</td><td class="negative">Negative (Red)</td></tr>
+        <tr><td>FY2024 Revenue</td><td>$104,294</td><td class="header-col">Ending Bar</td></tr>
+      </table>
+      <ol class="step-list" style="margin-top:1rem;">
+        <li>Add a "Base" column that represents the invisible supporting bar (floating bar trick)</li>
+        <li>Insert → Stacked Bar Chart with 3 series: Base (no fill), Positive (green), Negative (red)</li>
+        <li>Format the Base series: No Fill, No Border — it becomes invisible, creating the "floating" effect</li>
+        <li>Excel 2016+ has a native Waterfall chart type under Insert → Charts → Waterfall</li>
+        <li>Right-click the first and last bars → "Set as total" for proper formatting</li>
+      </ol>
+    </div>`
+  },
+  {
+    label:'8. Automation',
+    html:`<div class="lesson-box">
+      <h3>⚡ Goal Seek & Solver</h3>
+      <div class="code-block">
+<span class="comment">// GOAL SEEK: Data → What-If Analysis → Goal Seek</span>
+<span class="comment">// Example: What revenue is needed to achieve 20% EBIT margin?</span>
+Set cell: EBIT_Margin_Cell (=EBIT/Revenue)
+To value: 20%
+By changing: Revenue_Cell
+<span class="comment">// Excel will back-solve Revenue automatically</span>
+
+<span class="comment">// SOLVER: Data → Solver</span>
+<span class="comment">// Example: Maximize portfolio return subject to constraints</span>
+Objective: Maximize Portfolio_Return cell
+By changing: Weight_Cells (B2:B10)
+Subject to:
+  SUM(Weights) = 1          <span class="comment">// fully invested</span>
+  Weights >= 0              <span class="comment">// no short selling</span>
+  Portfolio_Vol &lt;= 15%     <span class="comment">// max risk constraint</span>
+      </div>
+      <div class="tip-box"><strong>Named Ranges + Solver:</strong> Name your weight cells "Weights" and your return cells "Returns" using the Name Box (top-left). Then your Solver setup and formulas become self-documenting: <span class="formula-pill">=SUMPRODUCT(Weights, Returns)</span></div>
+    </div>`
+  }
+];
+
+const lessonTabsEl = document.getElementById('lessonTabs');
+const lessonContentsEl = document.getElementById('lessonContents');
+lessonData.forEach((l,i)=>{
+  const btn = document.createElement('button');
+  btn.className = 'lesson-nav-btn'+(i===0?' active':'');
+  btn.textContent = l.label;
+  btn.onclick = ()=>setLesson(i);
+  lessonTabsEl.appendChild(btn);
+  const div = document.createElement('div');
+  div.className = 'lesson-content'+(i===0?' active':'');
+  div.innerHTML = l.html;
+  lessonContentsEl.appendChild(div);
+});
+
+// ===== EXERCISES =====
+const exercises = [
+  {num:'EX-01',diff:'easy',label:'easy',title:'Sum a Monthly Revenue Column',desc:'Given 12 monthly revenue values in B2:B13, write a formula to calculate total annual revenue.',hint:'Use SUM function',answer:'=SUM(B2:B13)'},
+  {num:'EX-02',diff:'easy',label:'easy',title:'Calculate Gross Margin %',desc:'Revenue is in B2, COGS is in B3. Write the gross margin percentage formula.',hint:'Gross Profit / Revenue',answer:'=(B2-B3)/B2'},
+  {num:'EX-03',diff:'easy',label:'easy',title:'Year-over-Year Growth',desc:'FY2023 revenue is in B2, FY2024 revenue is in B3. Calculate YoY growth rate.',hint:'(New-Old)/Old',answer:'=(B3-B2)/B2'},
+  {num:'EX-04',diff:'easy',label:'easy',title:'Absolute Cell Reference',desc:'Tax rate is in B1 (25%). Revenue for 10 companies is in A2:A11. Write a formula in C2 that can be copied down to calculate tax for each company.',hint:'Lock the tax rate cell with $',answer:'=A2*$B$1'},
+  {num:'EX-05',diff:'easy',label:'easy',title:'Count Non-Empty Cells',desc:'A sales rep list in A2:A100 has some blank rows. Count the number of sales reps listed.',hint:'COUNTA counts non-empty cells',answer:'=COUNTA(A2:A100)'},
+  {num:'EX-06',diff:'easy',label:'easy',title:'Format as Percentage',desc:'What Excel format code displays 0.1534 as "15.34%"?',hint:'Think percent sign and decimal places',answer:'0.00%'},
+  {num:'EX-07',diff:'easy',label:'easy',title:'Average Revenue',desc:'Monthly revenues are in B2:B13. Calculate average monthly revenue.',hint:'AVERAGE function',answer:'=AVERAGE(B2:B13)'},
+  {num:'EX-08',diff:'easy',label:'easy',title:'CAGR Formula',desc:'Starting value $10,000 in A1, ending value $18,500 in A2, over 6 years. Calculate CAGR.',hint:'(End/Start)^(1/n)-1',answer:'=(A2/A1)^(1/6)-1'},
+  {num:'EX-09',diff:'easy',label:'easy',title:'MAX and MIN',desc:'Revenue by quarter in B2:B5. Find the highest and lowest quarterly revenue using one formula each.',hint:'MAX() and MIN()',answer:'=MAX(B2:B5) and =MIN(B2:B5)'},
+  {num:'EX-10',diff:'easy',label:'easy',title:'Today\'s Date Formula',desc:'Write a formula that always shows today\'s date (updates automatically).',hint:'Single function, no arguments',answer:'=TODAY()'},
+  {num:'EX-11',diff:'med',label:'medium',title:'VLOOKUP — Find Stock Price',desc:'Stock tickers in A1:A50, prices in B1:B50. Write a VLOOKUP to find the price for ticker "MSFT" entered in E1.',hint:'Use FALSE for exact match',answer:'=VLOOKUP(E1,A1:B50,2,FALSE)'},
+  {num:'EX-12',diff:'med',label:'medium',title:'SUMIF — Revenue by Region',desc:'Region names in A2:A200, revenue in C2:C200. Sum all revenue where region = "North" (entered in F1).',hint:'SUMIF(range, criteria, sum_range)',answer:'=SUMIF(A2:A200,F1,C2:C200)'},
+  {num:'EX-13',diff:'med',label:'medium',title:'IFERROR Wrapper',desc:'You have a VLOOKUP that returns #N/A for missing tickers. Wrap it to display "Not Found" instead of the error.',hint:'IFERROR(formula, value_if_error)',answer:'=IFERROR(VLOOKUP(E1,A1:B50,2,FALSE),"Not Found")'},
+  {num:'EX-14',diff:'med',label:'medium',title:'NPV Calculation',desc:'Initial investment -$100,000 in B2. Annual cash flows $30,000 in B3:B7 (5 years). WACC is 10% in E1. Write the NPV formula.',hint:'NPV does NOT include Year 0',answer:'=NPV(E1,B3:B7)+B2'},
+  {num:'EX-15',diff:'med',label:'medium',title:'SUMIFS — Multi-Criteria',desc:'Sales data: Region in A, Product in B, Revenue in C. Sum revenue where Region="West" AND Product="Software".',hint:'SUMIFS(sum_range, range1, crit1, range2, crit2)',answer:'=SUMIFS(C2:C200,A2:A200,"West",B2:B200,"Software")'},
+  {num:'EX-16',diff:'med',label:'medium',title:'Monthly Mortgage Payment',desc:'Loan: $400,000 principal, 6% annual rate, 30-year term. Calculate monthly payment.',hint:'PMT(rate/12, nper*12, pv)',answer:'=PMT(6%/12,360,-400000)'},
+  {num:'EX-17',diff:'med',label:'medium',title:'Conditional Formatting Rule',desc:'Write the formula for a conditional formatting rule that highlights a cell RED if a company\'s D/E ratio (in B2) exceeds 2.0x.',hint:'Simple comparison formula starting with =',answer:'=B2>2'},
+  {num:'EX-18',diff:'med',label:'medium',title:'TEXT Function for Labels',desc:'Revenue value of 1250000 is in B2. Write a formula to display it as "$1,250,000".',hint:'TEXT function with format code',answer:'=TEXT(B2,"$#,##0")'},
+  {num:'EX-19',diff:'med',label:'medium',title:'INDEX/MATCH',desc:'Company names in A1:A50, EV/EBITDA multiples in E1:E50. Use INDEX/MATCH to find the multiple for "Apple".',hint:'=INDEX(return_range, MATCH(lookup, lookup_range, 0))',answer:'=INDEX(E1:E50,MATCH("Apple",A1:A50,0))'},
+  {num:'EX-20',diff:'med',label:'medium',title:'Days Between Dates',desc:'Deal start date in A2, deal close date in B2. Calculate number of calendar days to close.',hint:'Simple subtraction with date cells',answer:'=B2-A2'},
+  {num:'EX-21',diff:'hard',label:'hard',title:'IRR of an Investment',desc:'Initial outflow -$500,000 in B2, yearly inflows of $80k, $120k, $150k, $160k, $180k in B3:B7. Calculate IRR.',hint:'IRR includes ALL cash flows including Year 0',answer:'=IRR(B2:B7)'},
+  {num:'EX-22',diff:'hard',label:'hard',title:'2D INDEX/MATCH',desc:'Financial data table in A1:E10, metric names in A1:A10, year headers in A1:E1. Look up "EBITDA" for "2024".',hint:'INDEX(data, MATCH(row, rows, 0), MATCH(col, cols, 0))',answer:'=INDEX(B2:E10,MATCH("EBITDA",A2:A10,0),MATCH("2024",B1:E1,0))'},
+  {num:'EX-23',diff:'hard',label:'hard',title:'Weighted Average Cost of Capital',desc:'Equity weight 60%, cost of equity 12%. Debt weight 40%, pre-tax cost of debt 6%, tax rate 25%. Calculate WACC.',hint:'WACC = We×Ke + Wd×Kd×(1-t)',answer:'=0.6*12%+0.4*6%*(1-25%)'},
+  {num:'EX-24',diff:'hard',label:'hard',title:'SUMPRODUCT Portfolio Return',desc:'Stock weights in B2:B5 (40%, 30%, 20%, 10%), annual returns in C2:C5 (12%, 8%, 15%, 6%). Calculate portfolio return.',hint:'SUMPRODUCT multiplies arrays element-by-element then sums',answer:'=SUMPRODUCT(B2:B5,C2:C5)'},
+  {num:'EX-25',diff:'hard',label:'hard',title:'Dynamic OFFSET Range',desc:'Monthly data starts in B2. Write a formula to always sum the most recent 3 months, where the current month row is in cell E1.',hint:'OFFSET(start, rows_offset, 0, height, 1)',answer:'=SUM(OFFSET(B2,E1-3,0,3,1))'},
+  {num:'EX-26',diff:'hard',label:'hard',title:'Break-Even Units',desc:'Fixed costs $500,000 in B1, selling price per unit $45 in B2, variable cost per unit $28 in B3. Calculate break-even units.',hint:'Fixed Costs / (Price - Variable Cost)',answer:'=B1/(B2-B3)'},
+  {num:'EX-27',diff:'hard',label:'hard',title:'Bond Duration Calculation',desc:'Annual coupon $60, face value $1,000, YTM 6%, maturity 5 years. Write a SUMPRODUCT formula to calculate Macaulay Duration.',hint:'Weighted average time, weights = PV(cash flow)/Price',answer:'=SUMPRODUCT({1,2,3,4,5},{60,60,60,60,1060}/(1.06^{1,2,3,4,5}))/SUMPRODUCT({60,60,60,60,1060}/(1.06^{1,2,3,4,5}))'},
+  {num:'EX-28',diff:'hard',label:'hard',title:'Rolling 12-Month Revenue',desc:'Monthly revenues in B2:B37 (3 years). Write a formula in C13 onwards that calculates trailing 12-month revenue.',hint:'SUM with OFFSET going back 11 rows',answer:'=SUM(B2:B13) then drag, or =SUM(OFFSET(B14,-11,0,12,1))'},
+  {num:'EX-29',diff:'hard',label:'hard',title:'XIRR with Dates',desc:'Investment: -$250,000 on 1/1/2020. Returns: $40k on 6/30/2020, $80k on 12/31/2020, $100k on 12/31/2021, $150k on 6/30/2022. Cash flows in B2:B5, dates in C2:C5.',hint:'XIRR(values_including_initial, all_dates)',answer:'=XIRR(B2:B5,C2:C5)'},
+  {num:'EX-30',diff:'hard',label:'hard',title:'Scenario with CHOOSE',desc:'Scenario selector in B1 (1=Bull, 2=Base, 3=Bear). Revenue assumptions: $120M, $100M, $75M respectively. Write a formula that returns the right revenue based on B1.',hint:'CHOOSE(index, val1, val2, val3)',answer:'=CHOOSE(B1,120,100,75)'},
+  {num:'EX-31',diff:'expert',label:'expert',title:'DCF Terminal Value',desc:'FCF in Year 5 is in B7. Terminal growth rate (3%) in E1, WACC (10%) in E2. Calculate Terminal Value and its PV.',hint:'TV = FCF*(1+g)/(WACC-g), then discount back 5 years',answer:'=B7*(1+E1)/(E2-E1)/(1+E2)^5'},
+  {num:'EX-32',diff:'expert',label:'expert',title:'FILTER Function — Stock Screener',desc:'Stock data: Tickers in A, Sector in B, P/E in C, Market Cap in D. Filter to show only Tech stocks with P/E < 25 and MCap > $50B.',hint:'FILTER with multiplied boolean arrays for AND condition',answer:'=FILTER(A1:D100,(B1:B100="Tech")*(C1:C100<25)*(D1:D100>50))'},
+  {num:'EX-33',diff:'expert',label:'expert',title:'Dynamic Named Range with OFFSET',desc:'Data grows monthly in column B starting at B2. Create a dynamic named range formula for the entire data range.',hint:'OFFSET(B2,0,0,COUNTA(B:B)-1,1)',answer:'=OFFSET(Sheet1!$B$2,0,0,COUNTA(Sheet1!$B:$B)-1,1)'},
+  {num:'EX-34',diff:'expert',label:'expert',title:'LBO Entry Equity',desc:'Purchase price $500M in B1, transaction fees 2% in B2, debt raised $350M in B3. Calculate sponsor equity required.',hint:'Equity = Purchase Price + Fees - Debt',answer:'=B1*(1+B2)-B3'},
+  {num:'EX-35',diff:'expert',label:'expert',title:'Loan Amortization Schedule Row',desc:'For a $500k loan at 5% annual rate over 10 years, write formulas for Year 3: (a) interest payment, (b) principal payment.',hint:'IPMT and PPMT with per=3',answer:'(a) =IPMT(5%,3,10,-500000) (b) =PPMT(5%,3,10,-500000)'},
+  {num:'EX-36',diff:'expert',label:'expert',title:'Circular Reference Handler',desc:'In a 3-statement model, interest expense = Average Debt × Interest Rate. How do you handle the circularity? Write the Excel setting required.',hint:'File → Options → Formulas',answer:'Enable Iterative Calculation (File > Options > Formulas > check Enable iterative calculation, set Max Iterations to 100)'},
+  // adding more exercises as cards
+  {num:'EX-37',diff:'easy',label:'easy',title:'Count Numbers Only',desc:'Range A1:A20 has a mix of numbers and text. Count only the numeric cells.',hint:'COUNT (not COUNTA) counts only numbers',answer:'=COUNT(A1:A20)'},
+  {num:'EX-38',diff:'easy',label:'easy',title:'Round to Nearest Thousand',desc:'Revenue of 1,234,567 in cell B2. Round it to the nearest thousand.',hint:'ROUND with negative decimal places',answer:'=ROUND(B2,-3)'},
+  {num:'EX-39',diff:'med',label:'medium',title:'Future Value of Savings',desc:'Saving $2,000/month for 20 years at 7% annual return. What\'s the future value?',hint:'FV(rate/12, months, -payment)',answer:'=FV(7%/12,240,-2000)'},
+  {num:'EX-40',diff:'med',label:'medium',title:'COUNTIFS — Active Deals',desc:'Stage in column B, deal size in column C. Count deals in "Negotiation" stage with value over $100k.',hint:'COUNTIFS with two criteria',answer:'=COUNTIFS(B2:B200,"Negotiation",C2:C200,">100000")'},
+];
+
+function renderExercises(){
+  const grid = document.getElementById('exerciseGrid');
+  grid.innerHTML = exercises.map((ex,i)=>`
+    <div class="ex-card">
+      <div class="ex-header">
+        <span class="ex-num">${ex.num}</span>
+        <span class="ex-diff diff-${ex.diff}">${ex.label.toUpperCase()}</span>
+      </div>
+      <h4>${ex.title}</h4>
+      <p>${ex.desc}</p>
+      <span class="ex-expand" onclick="toggleEx(${i})">▶ Show exercise & check answer</span>
+      <div class="ex-detail" id="exDetail${i}">
+        <p style="font-size:0.75rem;color:var(--muted);margin-bottom:0.3rem;font-style:italic;">💡 Hint: ${ex.hint}</p>
+        <input class="answer-input" id="ans${i}" placeholder="Type your formula here..." />
+        <br><button class="check-btn" onclick="checkAnswer(${i})">Check Answer ✓</button>
+        <div class="answer-feedback" id="fb${i}"></div>
+      </div>
+    </div>`).join('');
+}
+function toggleEx(i){
+  const d = document.getElementById('exDetail'+i);
+  d.classList.toggle('open');
+}
+function checkAnswer(i){
+  const userAns = document.getElementById('ans'+i).value.trim().replace(/\s+/g,'').toLowerCase();
+  const correct = exercises[i].answer.replace(/\s+/g,'').toLowerCase();
+  const fb = document.getElementById('fb'+i);
+  // fuzzy match for common variants
+  const isCorrect = userAns===correct || 
+    userAns.includes(correct.slice(1,20)) || 
+    correct.includes(userAns.slice(1,20)) ||
+    (userAns.length > 5 && correct.includes(userAns.slice(0,15)));
+  fb.className = 'answer-feedback '+(isCorrect?'correct':'wrong');
+  fb.textContent = isCorrect 
+    ? '✅ Correct! '+exercises[i].answer
+    : '❌ Not quite. Expected: '+exercises[i].answer;
+}
+renderExercises();
+
+// ===== QUIZ =====
+const allQuestions = [
+  // BASIC
+  {level:'basic',q:'Which function calculates the sum of all values in a range?',opts:['=TOTAL(A1:A10)','=SUM(A1:A10)','=ADD(A1:A10)','=PLUS(A1:A10)'],correct:1,explain:'SUM is Excel\'s most basic function. =SUM(A1:A10) adds all values in cells A1 through A10.'},
+  {level:'basic',q:'What does the $ symbol do in a cell reference like $B$1?',opts:['Converts the value to currency','Makes the reference absolute (locked)','Multiplies by the cell value','Adds the cell to a named range'],correct:1,explain:'The $ locks the row and/or column reference when copying formulas. $B$1 stays as $B$1 no matter where you copy it. Press F4 to cycle through reference types.'},
+  {level:'basic',q:'Which formula calculates the percentage change from 100 to 120?',opts:['=(120-100)/100','=120/100','=120-100','=PERCENTCHANGE(100,120)'],correct:0,explain:'YoY growth = (New - Old) / Old = (120-100)/100 = 20%. This is the standard formula for calculating period-over-period growth rates.'},
+  {level:'basic',q:'What is the keyboard shortcut to apply currency format to selected cells?',opts:['Ctrl+Shift+!','Ctrl+Shift+$','Alt+$','Ctrl+$'],correct:1,explain:'Ctrl+Shift+$ applies the currency format ($1,234.00). Ctrl+Shift+% applies percentage format, and Ctrl+Shift+! applies the number format with commas.'},
+  {level:'basic',q:'The AVERAGE function in Excel calculates the:',opts:['Median of a dataset','Geometric mean','Sum divided by count','Most frequent value'],correct:2,explain:'AVERAGE calculates the arithmetic mean — it sums all values and divides by the count of values. Use MEDIAN for the middle value, MODE for most frequent.'},
+  {level:'basic',q:'Which formula inserts today\'s date that updates automatically each day?',opts:['=DATE()','=NOW()','=TODAY()','=CURRENT_DATE()'],correct:2,explain:'=TODAY() returns just the current date (updates daily). =NOW() returns date AND time. Both recalculate every time the worksheet is opened or recalculated.'},
+  {level:'basic',q:'What does COUNTA do differently from COUNT?',opts:['COUNTA sums values, COUNT counts them','COUNTA counts non-empty cells (any type), COUNT only counts numbers','COUNTA is faster than COUNT','They are identical functions'],correct:1,explain:'COUNT only counts cells containing numbers. COUNTA counts all non-empty cells regardless of type (numbers, text, dates). Use COUNTA for columns with text like company names.'},
+  {level:'basic',q:'Which chart type is BEST for showing a company\'s market share breakdown?',opts:['Line chart','Scatter plot','Pie or Donut chart','Histogram'],correct:2,explain:'Pie/Donut charts are ideal for showing part-to-whole relationships like market share. Use bar charts for comparing quantities, line charts for trends over time.'},
+  {level:'basic',q:'In Excel, what does the ROUND(1234.567, 2) formula return?',opts:['1234.57','1234.56','1235','1234.6'],correct:0,explain:'ROUND(1234.567, 2) rounds to 2 decimal places, giving 1234.57. ROUND(1234.567, 0) = 1235. ROUND(1234.567, -2) = 1200 (round to nearest hundred).'},
+  {level:'basic',q:'To freeze the top row in Excel so it stays visible while scrolling, you go to:',opts:['Home → Format → Freeze','View → Freeze Panes → Freeze Top Row','Insert → Freeze Row','Data → Freeze'],correct:1,explain:'View → Freeze Panes → Freeze Top Row locks row 1. For financial models with many rows, also freeze the first column (View → Freeze Panes → Freeze First Column) to keep labels visible.'},
+  // BASIC cont.
+  {level:'basic',q:'Which function returns the LARGEST value in a range?',opts:['=HIGH(A1:A20)','=MAXIMUM(A1:A20)','=MAX(A1:A20)','=LARGEST(A1:A20)'],correct:2,explain:'MAX returns the largest value. MIN returns the smallest. LARGE(range, k) returns the k-th largest value (useful for top-N analysis).'},
+  {level:'basic',q:'What format code displays a number as a percentage with 1 decimal? (e.g., 0.1534 → 15.3%)',opts:['0%','0.0%','#.#%','P1'],correct:1,explain:'0.0% multiplies by 100 and shows 1 decimal. 0% shows no decimals. 0.00% shows 2 decimals. These are custom format codes used in Format Cells (Ctrl+1).'},
+  {level:'basic',q:'The formula =LEFT("AAPL_2024", 4) returns:',opts:['AAPL','2024','_202','AAPL_'],correct:0,explain:'LEFT extracts characters from the left side of a text string. LEFT("AAPL_2024", 4) returns the first 4 characters: "AAPL". Useful for parsing ticker codes or account numbers.'},
+  {level:'basic',q:'Which of these is NOT a valid Excel chart type?',opts:['Waterfall','Treemap','Funnel','Pyramid Scatter'],correct:3,explain:'"Pyramid Scatter" is not a real chart type. Excel includes Waterfall (great for bridge analysis), Treemap (for hierarchical data), and Funnel (for sales pipeline). These were added in Excel 2016.'},
+  {level:'basic',q:'To apply a formula to an entire column at once (e.g., 1000 rows), the fastest method is:',opts:['Type the formula in each cell manually','Double-click the fill handle of the first formula cell','Use CTRL+C and CTRL+V','Go to Data → Apply Formula'],correct:1,explain:'Double-clicking the fill handle (the small square at the bottom-right of a selected cell) auto-fills the formula down as far as there\'s adjacent data. This is the fastest method for large datasets.'},
+  // INTERMEDIATE
+  {level:'intermediate',q:'What is the key advantage of INDEX/MATCH over VLOOKUP?',opts:['INDEX/MATCH is faster on small datasets','INDEX/MATCH can look left — the lookup column doesn\'t need to be first','INDEX/MATCH is built into Excel 365 only','VLOOKUP is actually superior in all cases'],correct:1,explain:'VLOOKUP can only return values to the RIGHT of the lookup column. INDEX/MATCH can look in any direction. It\'s also more robust when columns are inserted, since MATCH finds the column by name rather than hardcoded position.'},
+  {level:'intermediate',q:'In =VLOOKUP(A2, B1:E100, 3, FALSE), what does the "FALSE" mean?',opts:['Return false if not found','Exact match required (don\'t use approximate matching)','Case-insensitive search','Search the entire workbook'],correct:1,explain:'The last argument in VLOOKUP is [range_lookup]: TRUE or 1 = approximate match (data must be sorted ascending), FALSE or 0 = exact match. ALWAYS use FALSE in financial models to avoid wrong matches.'},
+  {level:'intermediate',q:'=SUMIFS(C:C, A:A, "North", B:B, "Software") does what?',opts:['Counts rows where A is North and B is Software','Averages C where A is North','Sums column C where A="North" AND B="Software"','Creates a pivot table'],correct:2,explain:'SUMIFS sums a range (C) based on MULTIPLE criteria: where A="North" AND B="Software". It\'s one of the most-used functions in financial reporting. Note: unlike SUMIF, SUMIFS always has the sum_range first.'},
+  {level:'intermediate',q:'The NPV formula =NPV(10%, B3:B7) + B2 — why is B2 added OUTSIDE the NPV function?',opts:['It\'s a bug; B2 should be inside','NPV() discounts all values, but Year 0 cash flow occurs today (no discounting needed)','B2 must be subtracted, not added','NPV cannot handle negative numbers'],correct:1,explain:'NPV() assumes cash flows start at the END of period 1 and discounts them. The Year 0 investment (B2) occurs TODAY, so its present value is already its face value — no discounting needed. Add it outside the NPV function.'},
+  {level:'intermediate',q:'Which function wraps another to prevent displaying #N/A or #DIV/0! errors?',opts:['NOERROR()','IFERROR()','SUPPRESS_ERROR()','IFBLANK()'],correct:1,explain:'IFERROR(value, value_if_error) catches ALL Excel errors (#N/A, #DIV/0!, #REF!, #VALUE!, etc.) and returns your chosen alternative. Use =IFERROR(VLOOKUP(...), "N/A") to show "N/A" instead of the error.'},
+  {level:'intermediate',q:'A company\'s CAGR from $50M to $95M over 5 years is calculated as:',opts:['=(95-50)/50/5','=(95/50)^(1/5)-1','=(95/50)/5-1','=IRR({-50,0,0,0,0,95})'],correct:1,explain:'CAGR = (End/Start)^(1/n) - 1 = (95/50)^(1/5) - 1 = 13.7%. This compound annual growth rate formula is fundamental to finance. Note: the IRR approach (option D) would also work if set up correctly.'},
+  {level:'intermediate',q:'PivotTables are best described as:',opts:['Charts that pivot automatically','Interactive summaries that aggregate data without formulas','Formulas that transpose rows to columns','Tables with frozen headers'],correct:1,explain:'PivotTables dynamically aggregate, summarize, and analyze large datasets. Drag fields to Rows, Columns, Values, and Filters to slice data any way. No formulas needed — they recalculate instantly when you refresh.'},
+  {level:'intermediate',q:'What does the PMT function calculate?',opts:['The total interest paid on a loan','The payment amount per period for a loan or annuity','The present value of future payments','The number of payment periods'],correct:1,explain:'PMT(rate, nper, pv) returns the PAYMENT per period. For a monthly mortgage: =PMT(5%/12, 360, -300000). Note the negative sign on pv — cash you receive is positive; cash you pay is negative.'},
+  {level:'intermediate',q:'The TRIM function in Excel is primarily used to:',opts:['Cut a spreadsheet to size','Remove excess spaces from text','Trim decimal places','Delete empty rows'],correct:1,explain:'TRIM removes leading spaces, trailing spaces, and reduces multiple internal spaces to single spaces. Critical when cleaning data imported from accounting systems or databases, which often have inconsistent spacing.'},
+  {level:'intermediate',q:'In financial modeling, "absolute reference" ($B$1) is typically used for:',opts:['Growth rates and assumptions that apply to every row','Individual data points that change by row','Chart data ranges','Cell error traps'],correct:0,explain:'Absolute references lock a cell position when copying formulas. Use them for assumptions shared across rows: tax rates, discount rates, growth rate drivers. Relative references (B1) adjust automatically when copied — use for row-specific data.'},
+  {level:'intermediate',q:'DATA VALIDATION is used in Excel models primarily to:',opts:['Check formulas for errors','Restrict cell inputs (e.g., drop-downs, number ranges) to prevent mistakes','Validate that the balance sheet balances','Compare actual vs. budget data'],correct:1,explain:'Data Validation (Data → Data Validation) restricts what a user can enter. Use List validation for drop-downs (scenario selectors, department names). Use Number/Decimal validation to set acceptable input ranges. Prevents model-breaking inputs.'},
+  // ADVANCED
+  {level:'advanced',q:'In a DCF model, the formula for Terminal Value using the Gordon Growth Model is:',opts:['TV = FCF × Exit Multiple','TV = FCF₅ × (1+g) / (WACC - g)','TV = FCF₅ / WACC','TV = EBITDA × Multiple'],correct:1,explain:'Gordon Growth Model Terminal Value: TV = FCF × (1+g) / (WACC - g). The FCF is multiplied by (1+g) to get next year\'s FCF, then divided by (WACC - g) to get the perpetuity value. This must then be discounted back to today.'},
+  {level:'advanced',q:'SUMPRODUCT(B2:B6, C2:C6) where B contains portfolio weights and C contains returns calculates:',opts:['Total portfolio value','Number of positions','Weighted average portfolio return','The largest return in the portfolio'],correct:2,explain:'SUMPRODUCT multiplies each pair of values (weight × return) and sums the results — this is exactly the weighted average return formula. =SUMPRODUCT({40%,30%,20%,10%},{12%,8%,15%,6%}) = 4.8%+2.4%+3%+0.6% = 10.8%.'},
+  {level:'advanced',q:'In a sensitivity (data table), the "row input cell" refers to:',opts:['The cell being varied horizontally across the table\'s top row','A helper row for calculations','The output formula cell','The first row of source data'],correct:0,explain:'In Data Tables (Data → What-If → Data Table): Row input cell = the assumption that varies across COLUMNS (header row of your table). Column input cell = the assumption that varies down ROWS. The intersection is your output formula.'},
+  {level:'advanced',q:'The XIRR function is preferred over IRR when:',opts:['You want a faster calculation','Cash flows occur at irregular intervals (not exactly 1 year apart)','You have more than 10 cash flows','The IRR would be negative'],correct:1,explain:'IRR assumes exactly equal periods between cash flows. XIRR uses actual dates, making it more accurate for real investments where cash flows fall on specific irregular dates (e.g., a PE investment with odd timing).'},
+  {level:'advanced',q:'In Excel 365, which function replaced VLOOKUP and can return an entire row?',opts:['SUPERV()','XLOOKUP()','LOOKUP2()','FINDROW()'],correct:1,explain:'XLOOKUP(lookup, lookup_array, return_array) is the modern replacement. Advantages: searches any direction, can return multiple columns at once, has a built-in [not_found] argument, and defaults to exact match.'},
+  {level:'advanced',q:'The OFFSET function is particularly useful for:',opts:['Fixing #REF! errors','Creating dynamic ranges that expand as data is added (useful in charts)','Replacing VLOOKUP','Sorting data automatically'],correct:1,explain:'OFFSET(ref, rows, cols, height, width) returns a reference offset from a starting cell. By using COUNTA to set the height dynamically, you can create chart data ranges that automatically include new data rows.'},
+  {level:'advanced',q:'A "3-statement model" in investment banking refers to:',opts:['A model with 3 scenarios (bull/base/bear)','Linking the Income Statement, Balance Sheet, and Cash Flow Statement','A model that takes 3 months to build','A model for 3 companies'],correct:1,explain:'The three statements are P&L (profitability), Balance Sheet (assets/liabilities/equity), and Cash Flow Statement (liquidity). They are linked: Net Income → Retained Earnings (BS) and Cash Flow (CFS) → Cash (BS). The CFS is typically the most complex to build.'},
+  {level:'advanced',q:'In WACC, the cost of debt is multiplied by (1 - tax rate) because:',opts:['Debt is riskier than equity','Interest expense is tax-deductible, reducing the effective cost of debt','Taxes increase the cost of capital','It adjusts for inflation'],correct:1,explain:'Interest payments are tax-deductible, creating a "tax shield." A company paying 6% interest with 25% tax rate effectively pays 6% × (1-25%) = 4.5% after-tax. This is why debt is "cheaper" than equity and why companies use leverage.'},
+  {level:'advanced',q:'Which Excel tool finds the input value needed to achieve a specific output (e.g., revenue needed for 20% EBIT margin)?',opts:['Solver','Goal Seek','Scenario Manager','Data Table'],correct:1,explain:'Goal Seek (Data → What-If Analysis → Goal Seek): set a target output cell to a specific value by changing one input cell. Solver is for multi-variable optimization with constraints. Use Goal Seek for single-variable back-solving.'},
+  {level:'advanced',q:'In the formula =CHOOSE(B1, "Bull", "Base", "Bear"), if B1 = 2, the result is:',opts:['Bull','Base','Bear','2'],correct:1,explain:'CHOOSE(index_num, val1, val2, val3...) returns the value at position index_num. If B1=2, it returns the 2nd option: "Base". This is perfect for scenario-switching in models — one cell controls the entire model\'s scenario assumption.'},
+  // EXPERT
+  {level:'expert',q:'In an LBO model, "equity value at exit" is calculated as:',opts:['Entry equity × MoM return','Exit EBITDA × Exit Multiple - Remaining Debt','Revenue × Exit Multiple - Debt','FCF × (1+g) / (WACC-g)'],correct:1,explain:'Exit Equity Value = (Exit EBITDA × Exit Multiple) - Remaining Debt at Exit. The sponsor\'s return (MoM and IRR) is then calculated based on equity invested at entry vs. equity received at exit, adjusted for the holding period.'},
+  {level:'expert',q:'The INDIRECT function is used in finance models primarily to:',opts:['Check if formulas are circular','Reference cells on different sheets dynamically using text','Import external data','Fix array formula errors'],correct:1,explain:'INDIRECT converts a text string to a cell reference. =INDIRECT("Sheet"&A1&"!B5") creates a dynamic reference to a different sheet based on A1\'s value. Useful for multi-subsidiary models or reports that reference data across many sheets named in a list.'},
+  {level:'expert',q:'Which SUMPRODUCT formula counts rows where Region="North" AND Revenue > $100,000?',opts:['=SUMPRODUCT(SUMIF(A:A,"North",C:C)>100000)','=SUMPRODUCT((A2:A100="North")*(C2:C100>100000))','=COUNTIFS(A2:A100,"North",C2:C100,">100000")','Both B and C are correct'],correct:3,explain:'Both SUMPRODUCT and COUNTIFS work here. SUMPRODUCT uses boolean arrays: (A="North") returns {1,0,1,...} and (C>100000) returns {1,1,0,...}; multiplying gives AND logic; summing counts the 1s. COUNTIFS is simpler syntax for the same result.'},
+  {level:'expert',q:'The Modified Duration formula adjusts Macaulay Duration by:',opts:['Multiplying by (1 + YTM/n)','Dividing by (1 + YTM/n)','Adding 1 to Macaulay Duration','Multiplying by the coupon rate'],correct:1,explain:'Modified Duration = Macaulay Duration / (1 + YTM/n), where n = coupon payments per year. Modified Duration measures the approximate % price change for a 1% change in yield. A bond with ModDur of 5 loses ~5% for each 1% rate increase.'},
+  {level:'expert',q:'In Excel\'s Solver for portfolio optimization, the "constraint" SUM(B2:B10)=1 ensures:',opts:['No single position exceeds 100%','The portfolio is fully invested (weights sum to 100%)','All returns are positive','The model is balanced'],correct:1,explain:'This constraint ensures portfolio weights sum to 100% — the portfolio is "fully invested." You\'d add other constraints: B2:B10 >= 0 (no short selling), portfolio volatility <= target, or individual weight <= maximum concentration limit.'},
+  {level:'expert',q:'An array formula entered with Ctrl+Shift+Enter (legacy) vs. a dynamic array function (Excel 365) — what is the key difference?',opts:['Speed: dynamic arrays are 10x faster','Dynamic arrays spill results into adjacent cells automatically; legacy arrays require selecting the exact output range first','Legacy arrays are more accurate','There is no functional difference'],correct:1,explain:'Excel 365 dynamic array functions (FILTER, SORT, UNIQUE, SEQUENCE) automatically "spill" results into adjacent cells. Legacy Ctrl+Shift+Enter arrays require you to pre-select the exact output range. Dynamic arrays are more flexible and user-friendly.'},
+  {level:'expert',q:'What happens to a financial model if iterative calculation is NOT enabled when circular references exist?',opts:['Excel solves the circular automatically','Excel displays a #CIRC! error and calculates incorrectly or shows 0','The model runs but 10x slower','Excel prompts you to enable it'],correct:1,explain:'Without iterative calculation, Excel cannot resolve circular references — it typically shows 0 or warns of the circular. Enable it: File → Options → Formulas → check "Enable iterative calculation." Set Max Iterations to 100 for most models.'},
+  {level:'expert',q:'In building a debt schedule for a financial model, the "revolver" (revolving credit facility) is used as:',opts:['A fixed debt tranche with quarterly payments','The "plug" that automatically pays down debt when excess cash exists, or draws when cash is needed','A mezzanine instrument','A long-term bond'],correct:1,explain:'The revolver is the model\'s balancing mechanism (plug). When cash exceeds the minimum balance, the model automatically uses excess to pay down the revolver. When cash is insufficient, the revolver draws to maintain minimum cash. This creates the circular: cash → revolver → interest → income → cash.'},
+  {level:'expert',q:'=FILTER(A1:D100, (B1:B100="Tech")*(C1:C100<25)*(D1:D100>50)) filters stocks where:',opts:['Sector is Tech OR P/E < 25 OR MCap > 50','Sector is Tech AND P/E < 25 AND MCap > 50','Sector is not Tech and P/E is 25 and MCap is 50','First match only'],correct:1,explain:'Multiplying boolean arrays in FILTER creates AND logic: each condition returns {1,0,1,...} and multiplication means ALL must be 1. Adding (+) boolean arrays creates OR logic. This is the same logic as SUMPRODUCT — booleans as 0/1 math.'},
+  {level:'expert',q:'The "hockey stick" issue in financial projections refers to:',opts:['A chart formatting problem','Unrealistically low growth in near years followed by sudden explosive growth — often an optimism bias','Revenue that looks like a hockey stick chart','CAGR calculations on curved data'],correct:1,explain:'Hockey stick projections show sluggish performance for the first 2-3 years then dramatic growth in later years. Common in startup financial models and strategic plans. Analysts scrutinize these skeptically — always build sensitivity tables to show what returns look like if Year 3+ growth doesn\'t materialize.'},
+  {level:'expert',q:'Which Excel function returns the k-th percentile of a dataset, useful for risk analysis?',opts:['=QUARTILE(array, k)','=PERCENTILE(array, k)','=RANK(array, k)','=STDEV(array) * k'],correct:1,explain:'PERCENTILE(array, k) returns the k-th percentile where k is between 0 and 1. PERCENTILE(Returns, 0.05) gives the 5th percentile — useful for Value at Risk (VaR) analysis. PERCENTILE(Returns, 0.25) gives the first quartile (same as QUARTILE(Returns, 1)).'},
+];
+
+let currentQuestions = [], currentQ = 0, score = 0, answered = false;
+
+function startQuiz(level){
+  document.querySelectorAll('.diff-btn').forEach(b=>b.classList.remove('active'));
+  event.target.classList.add('active');
+  if(level==='all') currentQuestions = shuffle([...allQuestions]).slice(0,20);
+  else currentQuestions = shuffle(allQuestions.filter(q=>q.level===level)).slice(0,Math.min(15,allQuestions.filter(q=>q.level===level).length));
+  currentQ = 0; score = 0; answered = false;
+  renderQuestion();
+}
+function shuffle(arr){for(let i=arr.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[arr[i],arr[j]]=[arr[j],arr[i]];}return arr;}
+function renderQuestion(){
+  const q = currentQuestions[currentQ];
+  if(!q){showQuizComplete();return;}
+  const total = currentQuestions.length;
+  document.getElementById('quizMeta').textContent = `Question ${currentQ+1} of ${total}`;
+  document.getElementById('quizProgress').style.width = ((currentQ+1)/total*100)+'%';
+  document.getElementById('quizScoreDisplay').textContent = `Score: ${score} / ${currentQ}`;
+  document.getElementById('nextBtn').style.display = 'none';
+  answered = false;
+  document.getElementById('quizBody').innerHTML = `
+    <div class="quiz-question">Q${currentQ+1}. ${q.q}</div>
+    <div class="quiz-options">
+      ${q.opts.map((o,i)=>`<button class="quiz-opt" onclick="selectAnswer(${i})">${String.fromCharCode(65+i)}. ${o}</button>`).join('')}
+    </div>
+    <div class="quiz-explain" id="quizExplain">💡 ${q.explain}</div>`;
+}
+function selectAnswer(i){
+  if(answered)return;
+  answered = true;
+  const q = currentQuestions[currentQ];
+  const opts = document.querySelectorAll('.quiz-opt');
+  opts.forEach((o,idx)=>{
+    if(idx===q.correct) o.classList.add('correct');
+    else if(idx===i) o.classList.add('wrong');
+    o.onclick = null;
+  });
+  if(i===q.correct) score++;
+  document.getElementById('quizExplain').classList.add('show');
+  document.getElementById('nextBtn').style.display = 'block';
+  document.getElementById('quizScoreDisplay').textContent = `Score: ${score} / ${currentQ+1}`;
+}
+function nextQuestion(){
+  currentQ++;
+  renderQuestion();
+}
+function showQuizComplete(){
+  const pct = Math.round(score/currentQuestions.length*100);
+  const grade = pct>=90?'🏆 A+':pct>=80?'⭐ A':pct>=70?'✅ B':pct>=60?'📈 C':'📚 Keep Practicing';
+  document.getElementById('quizProgress').style.width = '100%';
+  document.getElementById('quizBody').innerHTML = `
+    <div class="quiz-complete">
+      <div class="score-big">${pct}%</div>
+      <div class="grade">${grade} — You scored ${score} out of ${currentQuestions.length}</div>
+      <button class="btn-primary" style="opacity:1;animation:none;" onclick="startQuiz('all')">Retake Quiz</button>
+    </div>`;
+  document.getElementById('nextBtn').style.display = 'none';
+}
+startQuiz('all');
+
+// ===== MODEL TABS =====
+function switchModel(id){
+  document.querySelectorAll('.model-tab').forEach(t=>t.classList.remove('active'));
+  event.target.classList.add('active');
+  document.querySelectorAll('.model-content').forEach(c=>c.classList.remove('active'));
+  document.getElementById('model'+id.charAt(0).toUpperCase()+id.slice(1)).classList.add('active');
+}
+
+// ===== DATASETS =====
+const datasets = [
+  {title:'S&P 500 Returns (10 Years)',desc:'Monthly total returns for the S&P 500 index from 2014-2024. Perfect for STDEV, CORREL, and PERCENTILE exercises.',tags:['Returns','Statistics','Volatility'],rows:'120 rows'},
+  {title:'Company Income Statements',desc:'5-year income statement data for 20 fictional companies across 4 sectors. Practice building dashboards and PivotTables.',tags:['P&L','PivotTables','SUMIFS'],rows:'100 rows'},
+  {title:'Loan Amortization Data',desc:'Loan data for 50 borrowers including principal, rate, term. Practice PMT, IPMT, PPMT and amortization schedule building.',tags:['Loans','PMT/PV/FV','Schedule'],rows:'50 rows'},
+  {title:'M&A Transaction Comps',desc:'Comparable transaction data with EV, EBITDA, Revenue multiples for 40 deals across technology and consumer sectors.',tags:['M&A','Valuation','Multiples'],rows:'40 rows'},
+  {title:'Sales Pipeline Tracker',desc:'CRM-style data with deal stage, rep, region, close date, value. Practice SUMIFS, COUNTIFS, PivotTables, and forecasting.',tags:['Sales','SUMIFS','Forecasting'],rows:'200 rows'},
+  {title:'Portfolio Holdings',desc:'50-stock portfolio with weights, returns, sectors, and beta. Practice SUMPRODUCT portfolio return and risk calculations.',tags:['Portfolio','SUMPRODUCT','Risk'],rows:'50 rows'},
+  {title:'DCF Model Template',desc:'Pre-built DCF with revenue projections, FCF build, and valuation summary. Practice sensitivity tables and WACC inputs.',tags:['DCF','Sensitivity','Modeling'],rows:'Template'},
+  {title:'Budget vs. Actual',desc:'Monthly budget and actual data for 10 departments across 3 years. Practice variance analysis formulas and conditional formatting.',tags:['Budgeting','Variance','CF'],rows:'360 rows'},
+  {title:'Bond Pricing Dataset',desc:'30 bonds with coupon rates, maturities, YTMs, and duration. Practice PRICE, YIELD, duration calculations.',tags:['Bonds','Fixed Income','Duration'],rows:'30 rows'},
+  {title:'Real Estate Model',desc:'10-property portfolio with acquisition cost, NOI, cap rate, and hold period data. Practice IRR and return calculations.',tags:['Real Estate','IRR','NOI'],rows:'10 props'},
+  {title:'Options Chain Data',desc:'Call and put option data with strikes, premiums, Greeks. For advanced users learning about derivatives in Excel.',tags:['Options','Derivatives','Advanced'],rows:'50 rows'},
+  {title:'3-Statement Model',desc:'Full integrated 3-statement model template with IS, BS, and CFS linked with check rows. The gold standard template.',tags:['3-Statement','Full Model','Advanced'],rows:'Template'},
+];
+const datasetGrid = document.getElementById('datasetGrid');
+datasetGrid.innerHTML = datasets.map(d=>`
+  <div class="dataset-card">
+    <h4>${d.title}</h4>
+    <p>${d.desc}</p>
+    <div class="dataset-meta">
+      ${d.tags.map(t=>`<span class="dataset-tag">${t}</span>`).join('')}
+      <span class="dataset-tag" style="background:var(--blue-light);color:var(--blue);">${d.rows}</span>
+    </div>
+    <button class="download-btn" onclick="alert('📥 In a live version, this would download the ${d.title} dataset as an .xlsx file!')">Download Dataset (.xlsx)</button>
+  </div>`).join('');
+</script>
+</body>
+</html>
